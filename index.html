@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Triad Shapes" />
+  <link rel="manifest" href="manifest.json?v=999" />
+  <link rel="apple-touch-icon" href="icon-192.png?v=999" />
+  <title>Triad Shapes</title>
+  <link rel="stylesheet" href="style.css?v=999" />
+</head>
+<body>
+  <script>
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => document.documentElement.classList.add('loaded'));
+    } else {
+      document.documentElement.classList.add('loaded');
+    }
+  </script>
+
+  <div id="app">
+    <!-- NAV -->
+   <nav id="nav-bar">
+  <button id="back-btn" class="nav-btn">Back</button>
+  <div id="nav-title">Triad Shapes</div>
+  <div style="display: flex; align-items: center; gap: 8px;">
+  <!-- DONATE BUTTON (in nav) -->
+<a href="https://buymeacoffee.com/m1820" target="_blank" id="donate-btn" class="nav-btn">
+  <span class="donate-icon">Buy me a Coffee</span>
+</a>
+
+<!-- NOTICE -->
+<div id="coming-soon-notice">
+  <span class="notice-text">More Triad Patterns coming soon.</span>
+  <button id="dismiss-notice" class="notice-dismiss">Dismiss</button>
+</div>
+    <!-- MENU -->
+    <div id="menu-container">
+      <button id="menu-toggle" class="nav-btn">Menu</button>
+      <div id="menu-dropdown" class="hidden">
+        <div id="menu-items"></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    <!-- HOME -->
+    <section id="home" class="page active">
+      <h1 class="page-title"></h1>
+      <div id="menu-list"></div>
+    </section>
+
+    <!-- DETAIL -->
+    <section id="shape-detail" class="page">
+      <h2 id="shape-title" class="page-title"></h2>
+      <p id="goodfor-text" class="subheader"></p>
+      <div id="submenu-list"></div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="page">
+      <h2 id="gallery-title" class="page-title"></h2>
+      <div id="image-grid"></div>
+    </section>
+
+<!-- FULLSCREEN -->
+<div id="fullscreen" class="hidden">
+  <img id="fs-image" src="" alt="" />
+  <div id="fs-caption"></div>
+  <div id="fs-controls">
+    <button id="prev-img" class="fs-btn">←</button>
+    <button id="next-img" class="fs-btn">→</button>
+  </div>
+  <button id="close-fs" class="fs-btn">×</button>
+  <div id="fs-counter"></div>
+</div>
+
+  <script src="data.js?v=999"></script>
+  <script src="app.js?v=999"></script>
+    <!-- Attribution Footer -->
+  <footer id="attribution" style="text-align: center; padding: 20px; font-size: 12px; color: #aaa; background: #1c1c1e; border-top: 1px solid #333;">
+    TriadsApp is Open Source Support us on GitHub <a href="https://github.com/m1820/TriadsApp" target="_blank" style="color: #0a84ff;"></a>Support Our Development become a Github Sponsor<a href="https://github.com/sponsors/m1820" target="_blank" style="color: #0a84ff;">TriadsApp</a>. Fretboard diagrams created with <a href="https://zeitbach.com/projects/fretboard-diagram-creator/" target="_blank" style="color: #0a84ff;">Fretboard Diagram Creator</a>
+  </footer>
+
+</body>
+</html>
+</body>
+</html>
