@@ -1,20 +1,63 @@
-// sw.js — Minimal, bulletproof service worker (2025 working)
-const CACHE_NAME = 'triad-shapes-v1';
+// sw.js — Triads App Service Worker (2025 gold standard)
+// Change the CACHE name only when you deploy a real update → forces fresh version instantly
+// Offline functionality stays 100% intact
 
-// Activate immediately
-self.addEventListener('install', e => {
-  self.skipWaiting();
+const CACHE_NAME = 'triads-v3.0';   // ← BUMP THIS NUMBER EVERY TIME YOU DEPLOY AN UPDATE
+
+// Files to cache (add new ones here if you ever add more)
+const FILES_TO_CACHE = [
+  '/',
+  '/index.html',
+  '/style.css',
+  '/app.js',
+  '/data.js',
+  '/manifest.json',
+  '/logo_small.png',
+  '/icon-192.png',
+  '/icon-512.png',
+  // Add your image folders if needed
+  '/resources/'
+];
+
+// Install → cache everything
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(FILES_TO_CACHE.map(url => new Request(url, { credentials: 'same-origin' })));
+    })
+  );
+  self.skipWaiting(); // Force new SW to activate immediately
 });
 
-// Claim clients immediately
-self.addEventListener('activate', e => {
-  e.waitUntil(self.clients.claim());
+// Activate → delete old caches
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keyList => {
+      return Promise.all(
+        keyList.map(key => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim(); // Take control of pages immediately
 });
 
-// Simple network-first strategy
-self.addEventListener('fetch', e => {
-  if (e.request.method !== 'GET') return;
-  e.respondWith(
-    fetch(e.request).catch(() => caches.match(e.request))
+// Fetch → serve from cache first, fall back to network
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+
+  event.respondWith(
+    caches.match(event.request).then(cachedResponse => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(event.request).catch(() => {
+        // Optional: serve a fallback offline page
+        // return caches.match('/offline.html');
+      });
+    })
   );
 });

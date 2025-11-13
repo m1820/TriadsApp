@@ -239,3 +239,9 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(255,0,0,0.5);
 }
+
+#nav-title img {
+  max-height: 36px;
+  width: auto;
+  image-rendering: -webkit-optimize-contrast; /* crisp on retina */
+}
