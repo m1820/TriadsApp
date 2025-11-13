@@ -85,6 +85,15 @@
     TriadsApp is Open Source! | <a href="https://github.com/m1820/TriadsApp" target="_blank" style="color: #0a84ff;">Contribute</a> on GitHub || Support Our Development become a Github Sponsor<a href="https://github.com/sponsors/m1820" target="_blank" style="color: #0a84ff;">TriadsApp</a>. Fretboard diagrams created with <a href="https://zeitbach.com/projects/fretboard-diagram-creator/" target="_blank" style="color: #0a84ff;">Fretboard Diagram Creator</a>
   </footer>
 
+<!-- "Install" button -->
+<script>
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  
+});
+</script>
 </body>
 </html>
 </body>
