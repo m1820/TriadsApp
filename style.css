@@ -245,3 +245,16 @@ body {
   width: auto;
   image-rendering: -webkit-optimize-contrast; /* crisp on retina */
 }
+
+/* Hidden from users, visible to Google — best of both worlds */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
