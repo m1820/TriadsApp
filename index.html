@@ -10,21 +10,17 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
   
-  <!-- PERFECT SEO TITLE & DESCRIPTION -->
   <title>Guitar Triads – Movable Shapes, Patterns & Nashville Number System (Free)</title>
   <meta name="description" content="Free open-source PWA with every movable guitar triad shape. Learn triads once → play in any key forever. Perfect for worship leaders & rhythm players. Works offline on iPhone/Android.">
   
-  <!-- OPEN GRAPH / SOCIAL SHARING -->
   <meta property="og:title" content="Guitar Triads – Free Movable Shapes App" />
   <meta property="og:description" content="Master every triad shape on guitar. Works offline • Installable • Nashville Number System ready." />
   <meta property="og:image" content="https://triadsapp.com/og-preview.jpg" />
   <meta property="og:url" content="https://triadsapp.com" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://triadsapp.com/og-preview.jpg" />
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- SERVICE WORKER -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -36,16 +32,22 @@
 <body>
   <script>document.documentElement.classList.add('loaded');</script>
 
-  <!-- HIDDEN H1 FOR GOOGLE (does NOT appear on screen) -->
   <h1 class="visually-hidden">Guitar Triads – Movable Shapes, Patterns & Nashville Number System (Free)</h1>
 
   <div id="app">
-    <!-- NAV BAR WITH LOGO -->
     <nav id="nav-bar">
       <button id="back-btn" class="nav-btn">Back</button>
-      <div id="nav-title">
-        <img src="logo_small.png" alt="Triads" loading="eager" style="height:38px; width:auto;">
+
+      <!-- LOGO LEFT + CLICKABLE -->
+      <div id="nav-logo">
+        <a href="#" id="home-link">
+          <img src="logo_small.png" alt="Triads" loading="eager" style="height:38px;width:auto;">
+        </a>
       </div>
+
+      <!-- CENTER TITLE -->
+      <div id="nav-title"></div>
+
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="https://buymeacoffee.com/m1820" target="_blank" id="donate-btn" class="nav-btn">
           <span class="donate-icon">Buy me a Coffee</span>
@@ -57,26 +59,21 @@
       </div>
     </nav>
 
-    <!-- COMING SOON NOTICE -->
     <div id="coming-soon-notice">
       <span class="notice-text">More Triad Patterns coming soon.</span>
       <button id="dismiss-notice" class="notice-dismiss">Dismiss</button>
     </div>
 
-    <!-- HOME PAGE -->
     <section id="home" class="page active">
       <div id="menu-list"></div>
-
-      <!-- VISIBLE INTRO TEXT (below the cards) -->
-      <div style="padding: 40px 20px 20px; text-align:center;">
-        <p style="color:#aaa; max-width:640px; margin:0 auto 20px; font-size:16px; line-height:1.6;">
+      <div style="padding:40px 20px 20px;text-align:center;">
+        <p style="color:#aaa;max-width:640px;margin:0 auto 20px;font-size:16px;line-height:1.6;">
           Learn every triad shape once → play in <strong>any key</strong> forever.<br>
           Free open-source app for worship leaders, rhythm players, and the Nashville Number System.
         </p>
       </div>
     </section>
 
-    <!-- DETAIL & GALLERY PAGES -->
     <section id="shape-detail" class="page">
       <h2 id="shape-title" class="page-title"></h2>
       <p id="goodfor-text" class="subheader"></p>
@@ -86,30 +83,26 @@
     <section id="gallery" class="page">
       <h2 id="gallery-title" class="page-title"></h2>
       <div id="image-grid"></div>
-      
-      <!-- YOUTUBE PRACTICE BUTTON -->
-      <div id="youtube-practice-container" class="hidden" style="text-align:center; margin:30px 20px 10px;">
+      <div id="youtube-practice-container" class="hidden" style="text-align:center;margin:30px 20px 10px;">
         <a id="youtube-practice-link" href="#" target="_blank" class="youtube-btn">
-          <span style="font-size:28px; margin-right:8px;">Play</span>
+          <span style="font-size:28px;margin-right:8px;">Play</span>
           Practice this progression with the song on YouTube
         </a>
-        <p style="font-size:13px; color:#888; margin-top:8px;">Opens in YouTube app/website</p>
+        <p style="font-size:13px;color:#888;margin-top:8px;">Opens in YouTube app/website</p>
       </div>
     </section>
 
-    <!-- FULLSCREEN VIEWER -->
     <div id="fullscreen" class="hidden">
       <img id="fs-image" src="" alt="" />
       <div id="fs-caption"></div>
       <div id="fs-controls">
-        <button id="prev-img" class="fs-btn">Previous</button>
-        <button id="next-img" class="fs-btn">Next</button>
+        <button id="prev-img" class="fs-btn">&#x25C0</button>
+        <button id="next-img" class="fs-btn">&#x25B6</button>
       </div>
-      <button id="close-fs" class="fs-btn">&times;</button>
+      <button id="close-fs" class="fs-btn">×</button>
       <div id="fs-counter"></div>
     </div>
 
-    <!-- FOOTER -->
     <footer id="attribution">
       TriadsApp is Open Source! | 
       <a href="https://github.com/m1820/TriadsApp" target="_blank">GitHub</a> | 

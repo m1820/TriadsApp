@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const pages = { home: document.getElementById('home'), detail: document.getElementById('shape-detail'), gallery: document.getElementById('gallery') };
+  const pages = {
+    home: document.getElementById('home'),
+    detail: document.getElementById('shape-detail'),
+    gallery: document.getElementById('gallery')
+  };
   const menuList = document.getElementById('menu-list');
   const submenuList = document.getElementById('submenu-list');
   const imageGrid = document.getElementById('image-grid');
@@ -7,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const goodforText = document.getElementById('goodfor-text');
   const galleryTitle = document.getElementById('gallery-title');
   const navTitle = document.getElementById('nav-title');
+  const navLogo = document.getElementById('nav-logo');
+  const homeLink = document.getElementById('home-link');
   const backBtn = document.getElementById('back-btn');
   const fs = document.getElementById('fullscreen');
   const fsImg = document.getElementById('fs-image');
@@ -22,18 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentImages = [], currentIdx = 0;
   let currentShape = null, currentGallery = '';
-  let controlsTimeout;
 
   // Dismiss notice
   if (localStorage.getItem('noticeDismissed') === 'true') notice.classList.add('hidden');
-  dismissBtn.onclick = () => { notice.classList.add('hidden'); localStorage.setItem('noticeDismissed', 'true'); };
-
-  function showControls() {
-    [fsControls, fsClose, fsCounter, fsCaption].forEach(el => el?.classList.add('active'));
-    clearTimeout(controlsTimeout);
-    controlsTimeout = setTimeout(hideControls, 3000);
-  }
-  function hideControls() { [fsControls, fsClose, fsCounter, fsCaption].forEach(el => el?.classList.remove('active')); }
+  dismissBtn.onclick = () => {
+    notice.classList.add('hidden');
+    localStorage.setItem('noticeDismissed', 'true');
+  };
 
   function renderHome() {
     menuList.innerHTML = '';
@@ -81,19 +82,16 @@ document.addEventListener('DOMContentLoaded', () => {
       wrapper.appendChild(img); wrapper.appendChild(caption);
       imageGrid.appendChild(wrapper);
     });
-        // YOUTUBE PRACTICE BUTTON – CORRECTED FOR E and G
+
+    // YouTube button
     const youtubeContainer = document.getElementById('youtube-practice-container');
     const youtubeLink = document.getElementById('youtube-practice-link');
-
-    // Reset visibility
     youtubeContainer.classList.add('hidden');
-
     if (title.includes('Example Song in E') || title.includes('Example song in E')) {
-      youtubeLink.href = 'https://www.youtube.com/watch?v=u8bsQmi3MMU';  // E
+      youtubeLink.href = 'https://www.youtube.com/watch?v=u8bsQmi3MMU';
       youtubeContainer.classList.remove('hidden');
-    }
-    else if (title.includes('Example Song in G') || title.includes('Example song in G')) {
-      youtubeLink.href = 'https://www.youtube.com/watch?v=Lpx4Mrj6dyo';  // G
+    } else if (title.includes('Example Song in G') || title.includes('Example song in G')) {
+      youtubeLink.href = 'https://www.youtube.com/watch?v=Lpx4Mrj6dyo';
       youtubeContainer.classList.remove('hidden');
     }
     switchPage('gallery');
@@ -114,7 +112,16 @@ document.addEventListener('DOMContentLoaded', () => {
     hideControls();
   }
 
-  document.getElementById('close-fs').onclick = e => { e.stopPropagation(); fs.classList.add('hidden'); };
+  function showControls() {
+    [fsControls, fsClose, fsCounter, fsCaption].forEach(el => el?.classList.add('active'));
+    clearTimeout(window.fsTimeout);
+    window.fsTimeout = setTimeout(hideControls, 3000);
+  }
+  function hideControls() {
+    [fsControls, fsClose, fsCounter, fsCaption].forEach(el => el?.classList.remove('active'));
+  }
+
+  fsClose.onclick = e => { e.stopPropagation(); fs.classList.add('hidden'); };
   document.getElementById('prev-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx - 1 + currentImages.length) % currentImages.length; updateFS(); };
   document.getElementById('next-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx + 1) % currentImages.length; updateFS(); };
 
@@ -125,18 +132,40 @@ document.addEventListener('DOMContentLoaded', () => {
     if (Math.abs(diff) > 50) diff > 0 ? document.getElementById('next-img').click() : document.getElementById('prev-img').click();
   });
 
-  backBtn.onclick = () => { pages.gallery.classList.contains('active') ? switchPage('detail') : switchPage('home'); };
+  backBtn.onclick = () => {
+    if (pages.gallery.classList.contains('active')) {
+      switchPage('detail');
+    } else {
+      switchPage('home');
+    }
+  };
 
+  // FINAL PERFECT SWITCHPAGE
   function switchPage(name) {
     Object.values(pages).forEach(p => p.classList.remove('active'));
     pages[name].classList.add('active');
     fs.classList.add('hidden');
-    navTitle.textContent = name === 'detail' ? currentShape?.name : name === 'gallery' ? currentGallery : 'Triad Shapes';
+
+    navLogo.style.display = 'block';
+
+    if (name === 'home') {
+      navTitle.textContent = '';
+    } else {
+      navTitle.textContent = name === 'detail' ? currentShape?.name : currentGallery;
+    }
+
     backBtn.style.display = name === 'home' ? 'none' : 'flex';
     document.getElementById('attribution').style.display = name === 'home' ? 'block' : 'none';
   }
 
-  // MENU DROPDOWN
+  // Logo click → home
+  homeLink.addEventListener('click', e => {
+    e.preventDefault();
+    switchPage('home');
+    renderHome();
+  });
+
+  // Menu dropdown
   function renderMenuDropdown() {
     menuItems.innerHTML = '';
     SHAPES_DATA.forEach((shape, i) => {
@@ -146,36 +175,35 @@ document.addEventListener('DOMContentLoaded', () => {
       item.onclick = e => { e.stopPropagation(); showDetail(i); menuDropdown.classList.remove('active'); };
       menuItems.appendChild(item);
     });
-    // ABOUT ITEM
     const about = document.createElement('div');
     about.className = 'menu-dropdown-item';
-    about.textContent = 'About Triad Shapes';
+    about.textContent = 'About Triads';
     about.onclick = e => { e.stopPropagation(); showAbout(); menuDropdown.classList.remove('active'); };
     menuItems.appendChild(about);
   }
 
   function showAbout() {
     const modal = document.createElement('div');
-    modal.style.cssText = 'position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:2000; display:flex; align-items:center; justify-content:center; padding:20px;';
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;';
     modal.innerHTML = `
-  <div style="background:#111; color:#f0f0f0; max-width:420px; width:100%; border-radius:20px; padding:28px 24px; box-shadow:0 20px 40px rgba(0,0,0,0.6); font-size:15px; line-height:1.6;">
-    <button onclick="this.closest('div').parentNode.remove()" style="position:absolute; top:12px; right:16px; background:none; border:none; color:#aaa; font-size:28px; cursor:pointer;">×</button>
-    <h2 style="text-align:center; margin:0 0 20px; font-size:22px; color:#0a84ff;">Triads</h2>
-    <p style="text-align:center; color:#ccc; margin:16px 0;">Master rhythm guitar & the Nashville Number System instantly.</p>
-    <div style="font-size:14.5px; color:#ddd;">
-      <p>Learn <strong>triad patterns once</strong> — play in <strong>any key</strong>, <strong>any song</strong>, forever.</p>
-      <p>No more memorizing hundreds of chords. Just learn a movable shape, know the root, and you’re ready.</p>
-      <p>Perfect for worship leaders, songwriters, and rhythm players who want pro-sounding comping without years of theory.</p>
-      <p style="margin-top:24px; font-size:13px; color:#888; text-align:center;">
-        Free • Open Source • Works Offline<br>Built with ❤️ for the guitar community
-      </p>
-      <p style="text-align:center; margin-top:20px;">
-        <a href="https://github.com/m1820/TriadsApp" target="_blank" style="color:#0a84ff; text-decoration:none;">View on GitHub →</a>
-        &nbsp;&nbsp;•&nbsp;&nbsp;
-        <a href="https://buymeacoffee.com/m1820" target="_blank" style="color:#ff9f1c; text-decoration:none;">Buy me a coffee</a>
-      </p>
-    </div>
-  </div>`;
+      <div style="background:#111;color:#f0f0f0;max-width:420px;width:100%;border-radius:20px;padding:28px 24px;box-shadow:0 20px 40px rgba(0,0,0,0.6);font-size:15px;line-height:1.6;">
+        <button onclick="this.closest('div').parentNode.remove()" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#aaa;font-size:28px;cursor:pointer;">×</button>
+        <h2 style="text-align:center;margin:0 0 20px;font-size:22px;color:#0a84ff;">Triads</h2>
+        <p style="text-align:center;color:#ccc;margin:16px 0;">Master rhythm guitar & the Nashville Number System instantly.</p>
+        <div style="font-size:14.5px;color:#ddd;">
+          <p>Learn <strong>triad patterns once</strong> — play in <strong>any key</strong>, <strong>any song</strong>, forever.</p>
+          <p>No more memorizing hundreds of chords. Just learn a movable shape, know the root, and you’re ready.</p>
+          <p>Perfect for worship leaders, songwriters, and rhythm players who want pro-sounding comping without years of theory.</p>
+          <p style="margin-top:24px;font-size:13px;color:#888;text-align:center;">
+            Free • Open Source • Works Offline<br>Built with ❤️ for the guitar community
+          </p>
+          <p style="text-align:center;margin-top:20px;">
+            <a href="https://github.com/m1820/TriadsApp" target="_blank" style="color:#0a84ff;text-decoration:none;">View on GitHub →</a>
+            &nbsp;&nbsp;•&nbsp;&nbsp;
+            <a href="https://buymeacoffee.com/m1820" target="_blank" style="color:#ff9f1c;text-decoration:none;">Buy me a coffee</a>
+          </p>
+        </div>
+      </div>`;
     document.body.appendChild(modal);
     modal.onclick = e => { if (e.target === modal) modal.remove(); };
   }
