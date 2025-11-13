@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('attribution').style.display = name === 'home' ? 'block' : 'none';
   }
 
-  // MENU DROPDOWN — WITH "About" RESTORED
+  // MENU DROPDOWN
   function renderMenuDropdown() {
     menuItems.innerHTML = '';
     SHAPES_DATA.forEach((shape, i) => {
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
       item.onclick = e => { e.stopPropagation(); showDetail(i); menuDropdown.classList.remove('active'); };
       menuItems.appendChild(item);
     });
-    // ABOUT ITEM — BACK AGAIN
+    // ABOUT ITEM
     const about = document.createElement('div');
     about.className = 'menu-dropdown-item';
     about.textContent = 'About Triad Shapes';

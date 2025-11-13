@@ -1,10 +1,7 @@
-// sw.js — Triads App Service Worker (2025 gold standard)
-// Change the CACHE name only when you deploy a real update → forces fresh version instantly
-// Offline functionality stays 100% intact
 
-const CACHE_NAME = 'triads-v3.0';   // ← BUMP THIS NUMBER EVERY TIME YOU DEPLOY AN UPDATE
+const CACHE_NAME = 'triads-v3.4'; 
 
-// Files to cache (add new ones here if you ever add more)
+// Files to cache 
 const FILES_TO_CACHE = [
   '/',
   '/index.html',
