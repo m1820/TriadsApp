@@ -6,10 +6,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Triad Shapes" />
+  <meta name="apple-mobile-web-app-title" content="Triads" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <title>Triad Shapes</title>
+  <title>Triads</title>
   <link rel="stylesheet" href="style.css" />
 
   <!-- SERVICE WORKER REGISTRATION -->
@@ -28,7 +28,7 @@
     <!-- NAV -->
     <nav id="nav-bar">
       <button id="back-btn" class="nav-btn">Back</button>
-      <div id="nav-title">Triad Shapes</div>
+      <div id="nav-title">Triads</div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="https://buymeacoffee.com/m1820" target="_blank" id="donate-btn" class="nav-btn">
           <span class="donate-icon">Buy me a Coffee</span>
@@ -65,6 +65,16 @@
     <section id="gallery" class="page">
       <h2 id="gallery-title" class="page-title"></h2>
       <div id="image-grid"></div>
+      <!-- YOUTUBE PRACTICE BUTTON – appears only on Example Song pages -->
+<div id="youtube-practice-container" class="hidden" style="text-align:center; margin: 30px 20px 10px;">
+  <a id="youtube-practice-link" href="#" target="_blank" class="youtube-btn">
+    <span style="font-size:28px; margin-right:8px;">Play</span>
+    Practice this progression with the song on YouTube
+  </a>
+  <p style="font-size:13px; color:#888; margin-top:8px;">
+    Opens in YouTube app/website
+  </p>
+</div>
     </section>
 
     <!-- FULLSCREEN -->
