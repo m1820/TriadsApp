@@ -34,10 +34,10 @@
           <span class="donate-icon">Buy me a Coffee</span>
         </a>
 
-        <!-- INSTALL BUTTON (appears when installable) -->
+        <!-- INSTALL BUTTON (appears when installable) 
         <button id="pwa-install-btn" class="nav-btn" style="display:none;background:#0a84ff;color:white;font-weight:600;">
           <span style="font-size:18px;">Install</span>
-        </button>
+        </button> -->
 
         <div id="menu-container">
           <button id="menu-toggle" class="nav-btn">Menu</button>
@@ -54,7 +54,7 @@
 
     <!-- PAGES -->
     <section id="home" class="page active">
-      <h1 class="page-title">Triad Shapes</h1>
+      <h1 class="page-title"></h1> <!-- Removing the Triad Shape Title at the top-->
       <div id="menu-list"></div>
     </section>
     <section id="shape-detail" class="page">
@@ -91,7 +91,7 @@
   <script src="data.js"></script>
   <script src="app.js"></script>
 
-  <!-- PWA INSTALL BUTTON – ONLY THIS CODE (no duplicate in app.js) -->
+  <!-- PWA INSTALL BUTTON – ONLY THIS CODE (no duplicate in app.js) 
   <script>
     let installPrompt = null;
     const installBtn = document.getElementById('pwa-install-btn');
@@ -117,6 +117,6 @@
     window.addEventListener('appinstalled', () => {
       installBtn.style.display = 'none';
     });
-  </script>
+  </script> -->
 </body>
 </html>
