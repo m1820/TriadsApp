@@ -24,11 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentShape = null, currentGallery = '';
   let controlsTimeout;
 
-  // Notice dismiss
+  // Dismiss notice
   if (localStorage.getItem('noticeDismissed') === 'true') notice.classList.add('hidden');
   dismissBtn.onclick = () => { notice.classList.add('hidden'); localStorage.setItem('noticeDismissed', 'true'); };
 
-  // Controls
   function showControls() {
     [fsControls, fsClose, fsCounter, fsCaption].forEach(el => el?.classList.add('active'));
     clearTimeout(controlsTimeout);
@@ -36,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   function hideControls() { [fsControls, fsClose, fsCounter, fsCaption].forEach(el => el?.classList.remove('active')); }
 
-  // Render Home
   function renderHome() {
     menuList.innerHTML = '';
     SHAPES_DATA.forEach((shape, i) => {
@@ -74,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentImages = imgs;
     imgs.forEach((src, i) => {
       const wrapper = document.createElement('div');
-      wrapper.style.cssText = 'display:flex; flex-direction:column; align-items:center;';
+      wrapper.style.cssText = 'display:flex;flex-direction:column;align-items:center;';
       const img = document.createElement('img');
       img.src = src; img.className = 'img-thumb'; img.onclick = () => openFS(i);
       const cleanName = src.split('/').pop().replace('.png','').replace('-sharp','#').replace(/\s+/g,' ');
@@ -90,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentIdx = i; updateFS();
     fs.classList.remove('hidden');
     hideControls();
-    fs.onclick = (e) => { if (!e.target.closest('.fs-btn') && e.target !== fsImg) showControls(); };
+    fs.onclick = e => { if (!e.target.closest('.fs-btn') && e.target !== fsImg) showControls(); };
   }
 
   function updateFS() {
@@ -105,7 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('prev-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx - 1 + currentImages.length) % currentImages.length; updateFS(); };
   document.getElementById('next-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx + 1) % currentImages.length; updateFS(); };
 
-  // Swipe
   let startX = 0;
   fs.addEventListener('touchstart', e => startX = e.touches[0].clientX);
   fs.addEventListener('touchend', e => {
@@ -124,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('attribution').style.display = name === 'home' ? 'block' : 'none';
   }
 
-  // MENU + ABOUT
+  // MENU DROPDOWN — WITH "About" RESTORED
   function renderMenuDropdown() {
     menuItems.innerHTML = '';
     SHAPES_DATA.forEach((shape, i) => {
@@ -134,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
       item.onclick = e => { e.stopPropagation(); showDetail(i); menuDropdown.classList.remove('active'); };
       menuItems.appendChild(item);
     });
+    // ABOUT ITEM — BACK AGAIN
     const about = document.createElement('div');
     about.className = 'menu-dropdown-item';
     about.textContent = 'About Triad Shapes';
@@ -143,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showAbout() {
     const modal = document.createElement('div');
-    modal.style.cssText = 'position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:2000; display:flex; align-items:center; justify-content:center; padding:20px; animation:fadeIn .3s;';
+    modal.style.cssText = 'position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:2000; display:flex; align-items:center; justify-content:center; padding:20px;';
     modal.innerHTML = `
       <div style="background:#111; color:#f0f0f0; max-width:420px; width:100%; border-radius:20px; padding:28px 24px; box-shadow:0 20px 40px rgba(0,0,0,0.6); font-size:15px; line-height:1.6;">
         <button onclick="this.closest('div').parentNode.remove()" style="position:absolute; top:12px; right:16px; background:none; border:none; color:#aaa; font-size:28px; cursor:pointer;">×</button>
@@ -160,8 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="https://github.com/m1820/TriadsApp" target="_blank" style="color:#0a84ff; text-decoration:none;">View on GitHub →</a>
             &nbsp;&nbsp;•&nbsp;&nbsp;
             <a href="https://buymeacoffee.com/m1820" target="_blank" style="color:#ff9f1c; text-decoration:none;">Buy me a coffee Coffee</a>
-            &nbsp;&nbsp;•&nbsp;&nbsp;
-            <a href="https://github.com/sponsors/m1820" target="_blank" style="color:#ff9f1c; text-decoration:none;">Become a Github Sponsor</a>
           </p>
         </div>
       </div>`;
@@ -176,29 +172,4 @@ document.addEventListener('DOMContentLoaded', () => {
   renderHome();
   renderMenuDropdown();
   switchPage('home');
-});
-
-// PWA INSTALL BUTTON
-let deferredPrompt;
-const installBtn = document.getElementById('install-btn');
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBtn.classList.remove('hidden');
-});
-
-installBtn.addEventListener('click', async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  if (outcome === 'accepted') {
-    installBtn.classList.add('hidden');
-  }
-  deferredPrompt = null;
-});
-
-// Hide button if already installed
-window.addEventListener('appinstalled', () => {
-  installBtn.classList.add('hidden');
 });

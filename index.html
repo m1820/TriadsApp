@@ -25,6 +25,7 @@
   <script>document.documentElement.classList.add('loaded');</script>
 
   <div id="app">
+    <!-- NAV -->
     <nav id="nav-bar">
       <button id="back-btn" class="nav-btn">Back</button>
       <div id="nav-title">Triad Shapes</div>
@@ -33,7 +34,7 @@
           <span class="donate-icon">Buy me a Coffee</span>
         </a>
 
-        <!-- INSTALL BUTTON — WILL APPEAR AUTOMATICALLY -->
+        <!-- INSTALL BUTTON (appears when installable) -->
         <button id="pwa-install-btn" class="nav-btn" style="display:none;background:#0a84ff;color:white;font-weight:600;">
           <span style="font-size:18px;">Install</span>
         </button>
@@ -45,27 +46,28 @@
       </div>
     </nav>
 
+    <!-- COMING SOON NOTICE -->
     <div id="coming-soon-notice">
       <span class="notice-text">More Triad Patterns coming soon.</span>
       <button id="dismiss-notice" class="notice-dismiss">Dismiss</button>
     </div>
 
+    <!-- PAGES -->
     <section id="home" class="page active">
       <h1 class="page-title">Triad Shapes</h1>
       <div id="menu-list"></div>
     </section>
-
     <section id="shape-detail" class="page">
       <h2 id="shape-title" class="page-title"></h2>
       <p id="goodfor-text" class="subheader"></p>
       <div id="submenu-list"></div>
     </section>
-
     <section id="gallery" class="page">
       <h2 id="gallery-title" class="page-title"></h2>
       <div id="image-grid"></div>
     </section>
 
+    <!-- FULLSCREEN -->
     <div id="fullscreen" class="hidden">
       <img id="fs-image" src="" alt="" />
       <div id="fs-caption"></div>
@@ -77,6 +79,7 @@
       <div id="fs-counter"></div>
     </div>
 
+    <!-- FOOTER -->
     <footer id="attribution">
       TriadsApp is Open Source! | 
       <a href="https://github.com/m1820/TriadsApp" target="_blank">GitHub</a> | 
@@ -88,24 +91,28 @@
   <script src="data.js"></script>
   <script src="app.js"></script>
 
-  <!-- PWA INSTALL BUTTON SCRIPT -->
+  <!-- PWA INSTALL BUTTON – ONLY THIS CODE (no duplicate in app.js) -->
   <script>
-    let installPrompt;
+    let installPrompt = null;
     const installBtn = document.getElementById('pwa-install-btn');
 
-    window.addEventListener('beforeinstallprompt', e => {
+    window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       installPrompt = e;
       installBtn.style.display = 'block';
+      console.log('Install button ready');
     });
 
-    installBtn.onclick = async () => {
+    installBtn.addEventListener('click', async () => {
       if (!installPrompt) return;
       installPrompt.prompt();
       const { outcome } = await installPrompt.userChoice;
-      if (outcome === 'accepted') installBtn.style.display = 'none';
+      if (outcome === 'accepted') {
+        installBtn.style.display = 'none';
+        console.log('App installed');
+      }
       installPrompt = null;
-    };
+    });
 
     window.addEventListener('appinstalled', () => {
       installBtn.style.display = 'none';
