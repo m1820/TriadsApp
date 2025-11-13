@@ -1,9 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const pages = { 
-    home: document.getElementById('home'), 
-    detail: document.getElementById('shape-detail'), 
-    gallery: document.getElementById('gallery') 
-  };
+  const pages = { home: document.getElementById('home'), detail: document.getElementById('shape-detail'), gallery: document.getElementById('gallery') };
   const menuList = document.getElementById('menu-list');
   const submenuList = document.getElementById('submenu-list');
   const imageGrid = document.getElementById('image-grid');
@@ -18,36 +14,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const fsClose = document.getElementById('close-fs');
   const fsCounter = document.getElementById('fs-counter');
   const fsCaption = document.getElementById('fs-caption');
-
-  // MENU DROPDOWN
   const menuToggle = document.getElementById('menu-toggle');
   const menuDropdown = document.getElementById('menu-dropdown');
   const menuItems = document.getElementById('menu-items');
-
-  // COMING SOON NOTICE
   const notice = document.getElementById('coming-soon-notice');
   const dismissBtn = document.getElementById('dismiss-notice');
-  if (localStorage.getItem('noticeDismissed') === 'true') {
-    notice.classList.add('hidden');
-  }
-  dismissBtn.onclick = () => {
-    notice.classList.add('hidden');
-    localStorage.setItem('noticeDismissed', 'true');
-  };
 
   let currentImages = [], currentIdx = 0;
   let currentShape = null, currentGallery = '';
   let controlsTimeout;
 
+  // Notice dismiss
+  if (localStorage.getItem('noticeDismissed') === 'true') notice.classList.add('hidden');
+  dismissBtn.onclick = () => { notice.classList.add('hidden'); localStorage.setItem('noticeDismissed', 'true'); };
+
+  // Controls
   function showControls() {
     [fsControls, fsClose, fsCounter, fsCaption].forEach(el => el?.classList.add('active'));
     clearTimeout(controlsTimeout);
     controlsTimeout = setTimeout(hideControls, 3000);
   }
-  function hideControls() {
-    [fsControls, fsClose, fsCounter, fsCaption].forEach(el => el?.classList.remove('active'));
-  }
+  function hideControls() { [fsControls, fsClose, fsCounter, fsCaption].forEach(el => el?.classList.remove('active')); }
 
+  // Render Home
   function renderHome() {
     menuList.innerHTML = '';
     SHAPES_DATA.forEach((shape, i) => {
@@ -66,10 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
     shapeTitle.textContent = shape.name;
     goodforText.textContent = '…';
     submenuList.innerHTML = '';
-
     const txt = await loadGoodFor(shape.name);
     goodforText.textContent = txt.trim() || 'No description';
-
     shape.submenus.forEach(sub => {
       const card = document.createElement('div');
       card.className = 'submenu-card';
@@ -77,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
       card.onclick = () => showGallery(sub.name, sub.images);
       submenuList.appendChild(card);
     });
-
     switchPage('detail');
   }
 
@@ -86,28 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
     currentGallery = title;
     imageGrid.innerHTML = '';
     currentImages = imgs;
-
     imgs.forEach((src, i) => {
       const wrapper = document.createElement('div');
-      wrapper.style.display = 'flex';
-      wrapper.style.flexDirection = 'column';
-      wrapper.style.alignItems = 'center';
-
+      wrapper.style.cssText = 'display:flex; flex-direction:column; align-items:center;';
       const img = document.createElement('img');
-      img.src = src; img.className = 'img-thumb';
-      img.onclick = () => openFS(i);
-
-      const fileName = src.split('/').pop();
-      const cleanName = fileName.replace('.png', '').replace('-sharp', '#').replace(/\s+/g, ' ');
+      img.src = src; img.className = 'img-thumb'; img.onclick = () => openFS(i);
+      const cleanName = src.split('/').pop().replace('.png','').replace('-sharp','#').replace(/\s+/g,' ');
       const caption = document.createElement('div');
-      caption.className = 'img-caption';
-      caption.textContent = cleanName;
-
-      wrapper.appendChild(img);
-      wrapper.appendChild(caption);
+      caption.className = 'img-caption'; caption.textContent = cleanName;
+      wrapper.appendChild(img); wrapper.appendChild(caption);
       imageGrid.appendChild(wrapper);
     });
-
     switchPage('gallery');
   }
 
@@ -115,93 +90,88 @@ document.addEventListener('DOMContentLoaded', () => {
     currentIdx = i; updateFS();
     fs.classList.remove('hidden');
     hideControls();
-    fs.onclick = (e) => {
-      if (e.target.closest('.fs-btn') || e.target === fsImg) return;
-      showControls();
-    };
+    fs.onclick = (e) => { if (!e.target.closest('.fs-btn') && e.target !== fsImg) showControls(); };
   }
 
   function updateFS() {
     fsImg.src = currentImages[currentIdx];
     fsCounter.textContent = `${currentIdx + 1} / ${currentImages.length}`;
-    const fileName = currentImages[currentIdx].split('/').pop();
-    const cleanName = fileName.replace('.png', '').replace('-sharp', '#').replace(/\s+/g, ' ');
+    const cleanName = currentImages[currentIdx].split('/').pop().replace('.png','').replace('-sharp','#').replace(/\s+/g,' ');
     fsCaption.textContent = cleanName;
     hideControls();
   }
 
-  document.getElementById('close-fs').onclick = (e) => {
-    e.stopPropagation();
-    fs.classList.add('hidden');
-  };
+  document.getElementById('close-fs').onclick = e => { e.stopPropagation(); fs.classList.add('hidden'); };
+  document.getElementById('prev-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx - 1 + currentImages.length) % currentImages.length; updateFS(); };
+  document.getElementById('next-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx + 1) % currentImages.length; updateFS(); };
 
-  document.getElementById('prev-img').onclick = (e) => {
-    e.stopPropagation();
-    currentIdx = (currentIdx - 1 + currentImages.length) % currentImages.length;
-    updateFS();
-  };
-
-  document.getElementById('next-img').onclick = (e) => {
-    e.stopPropagation();
-    currentIdx = (currentIdx + 1) % currentImages.length;
-    updateFS();
-  };
-
+  // Swipe
   let startX = 0;
   fs.addEventListener('touchstart', e => startX = e.touches[0].clientX);
   fs.addEventListener('touchend', e => {
     const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) document.getElementById('next-img').click();
-      else document.getElementById('prev-img').click();
-    }
+    if (Math.abs(diff) > 50) diff > 0 ? document.getElementById('next-img').click() : document.getElementById('prev-img').click();
   });
 
-  backBtn.onclick = () => {
-    if (pages.gallery.classList.contains('active')) switchPage('detail');
-    else if (pages.detail.classList.contains('active')) switchPage('home');
-  };
+  backBtn.onclick = () => { pages.gallery.classList.contains('active') ? switchPage('detail') : switchPage('home'); };
 
   function switchPage(name) {
     Object.values(pages).forEach(p => p.classList.remove('active'));
     pages[name].classList.add('active');
     fs.classList.add('hidden');
-
-    let t = "Triad Shapes";
-    if (name === 'detail') t = currentShape?.name || t;
-    if (name === 'gallery') t = currentGallery || t;
-    navTitle.textContent = t;
-    backBtn.style.display = (name === 'home') ? 'none' : 'flex';
-
-    const attribution = document.getElementById('attribution');
-    attribution.style.display = (name === 'home') ? 'block' : 'none';
+    navTitle.textContent = name === 'detail' ? currentShape?.name : name === 'gallery' ? currentGallery : 'Triad Shapes';
+    backBtn.style.display = name === 'home' ? 'none' : 'flex';
+    document.getElementById('attribution').style.display = name === 'home' ? 'block' : 'none';
   }
 
+  // MENU + ABOUT
   function renderMenuDropdown() {
     menuItems.innerHTML = '';
     SHAPES_DATA.forEach((shape, i) => {
       const item = document.createElement('div');
       item.className = 'menu-dropdown-item';
       item.textContent = shape.name;
-      item.onclick = (e) => {
-        e.stopPropagation();
-        showDetail(i);
-        menuDropdown.classList.remove('active');
-      };
+      item.onclick = e => { e.stopPropagation(); showDetail(i); menuDropdown.classList.remove('active'); };
       menuItems.appendChild(item);
     });
+    const about = document.createElement('div');
+    about.className = 'menu-dropdown-item';
+    about.textContent = 'About Triad Shapes';
+    about.onclick = e => { e.stopPropagation(); showAbout(); menuDropdown.classList.remove('active'); };
+    menuItems.appendChild(about);
   }
 
-  menuToggle.onclick = (e) => {
-    e.stopPropagation();
-    menuDropdown.classList.toggle('active');
-  };
+  function showAbout() {
+    const modal = document.createElement('div');
+    modal.style.cssText = 'position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:2000; display:flex; align-items:center; justify-content:center; padding:20px; animation:fadeIn .3s;';
+    modal.innerHTML = `
+      <div style="background:#111; color:#f0f0f0; max-width:420px; width:100%; border-radius:20px; padding:28px 24px; box-shadow:0 20px 40px rgba(0,0,0,0.6); font-size:15px; line-height:1.6;">
+        <button onclick="this.closest('div').parentNode.remove()" style="position:absolute; top:12px; right:16px; background:none; border:none; color:#aaa; font-size:28px; cursor:pointer;">×</button>
+        <h2 style="text-align:center; margin:0 0 20px; font-size:22px; color:#0a84ff;">Triad Shapes</h2>
+        <p style="text-align:center; color:#ccc; margin:16px 0;">Master rhythm guitar & the Nashville Number System instantly.</p>
+        <div style="font-size:14.5px; color:#ddd;">
+          <p>Learn <strong>triad patterns once</strong> — play in <strong>any key</strong>, <strong>any song</strong>, forever.</p>
+          <p>No more memorizing hundreds of chords. Just learn a movable shape, know the root, and you’re ready for any progression.</p>
+          <p>Perfect for worship leaders, songwriters, and rhythm players who want pro-sounding comping without years of theory.</p>
+          <p style="margin-top:24px; font-size:13px; color:#888; text-align:center;">
+            Free • Open Source • Works Offline<br>Built with ❤️ for the guitar community
+          </p>
+          <p style="text-align:center; margin-top:20px;">
+            <a href="https://github.com/m1820/TriadsApp" target="_blank" style="color:#0a84ff; text-decoration:none;">View on GitHub →</a>
+            &nbsp;&nbsp;•&nbsp;&nbsp;
+            <a href="https://buymeacoffee.com/m1820" target="_blank" style="color:#ff9f1c; text-decoration:none;">Buy me a coffee Coffee</a>
+            &nbsp;&nbsp;•&nbsp;&nbsp;
+            <a href="https://github.com/sponsors/m1820" target="_blank" style="color:#ff9f1c; text-decoration:none;">Become a Github Sponsor</a>
+          </p>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+    modal.onclick = e => { if (e.target === modal) modal.remove(); };
+  }
 
-  document.addEventListener('click', () => {
-    menuDropdown.classList.remove('active');
-  });
-
-  menuDropdown.onclick = (e) => e.stopPropagation();
+  menuToggle.onclick = e => { e.stopPropagation(); menuDropdown.classList.toggle('active'); };
+  document.addEventListener('click', () => menuDropdown.classList.remove('active'));
+  menuDropdown.onclick = e => e.stopPropagation();
 
   renderHome();
   renderMenuDropdown();
