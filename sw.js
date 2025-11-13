@@ -1,5 +1,5 @@
 
-const CACHE_NAME = 'triads-v3.4'; 
+const CACHE_NAME = 'triads-v4'; 
 
 // Files to cache 
 const FILES_TO_CACHE = [
