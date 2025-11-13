@@ -1,4 +1,4 @@
-# Triad Shapes PWA
+# Triads PWA
 
 A free, open-source Progressive Web App for guitar triad shapes. Explore roots, progressions, and examples in landscape mode. Install on iPhone/Android for native feel.
 
