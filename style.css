@@ -214,3 +214,7 @@ body {
   #menu-list, #submenu-list { grid-template-columns: 1fr 1fr; }
   .img-thumb { height: 110px; }
 }
+
+/* Install Button */
+#install-btn { background:#0a84ff; color:white; font-weight:600; }
+#install-btn.hidden { display:none; }

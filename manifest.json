@@ -1,10 +1,12 @@
 {
   "name": "Triad Shapes",
-  "short_name": "Triads",
+  "short_name": "Triad Shapes",
+  "description": "Master rhythm guitar & Nashville Number System with movable triad patterns",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#0a84ff",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "icon-192.png",
@@ -15,6 +17,12 @@
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

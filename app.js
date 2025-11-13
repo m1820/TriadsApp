@@ -177,3 +177,28 @@ document.addEventListener('DOMContentLoaded', () => {
   renderMenuDropdown();
   switchPage('home');
 });
+
+// PWA INSTALL BUTTON
+let deferredPrompt;
+const installBtn = document.getElementById('install-btn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.classList.remove('hidden');
+});
+
+installBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') {
+    installBtn.classList.add('hidden');
+  }
+  deferredPrompt = null;
+});
+
+// Hide button if already installed
+window.addEventListener('appinstalled', () => {
+  installBtn.classList.add('hidden');
+});
