@@ -166,7 +166,26 @@ installLightbox.onclick = () => installLightbox.classList.remove('active');
       diff > 0 ? document.getElementById('next-img').click() : document.getElementById('prev-img').click();
     }
   });
-
+  
+// ==================== KEYBOARD NAVIGATION FOR DESKTOP ====================
+document.addEventListener('keydown', (e) => {
+  // Only activate when fullscreen is open
+  if (!fs.classList.contains('hidden')) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      document.getElementById('close-fs').click();        // Close fullscreen
+    }
+    else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      document.getElementById('prev-img').click();        // Previous image
+    }
+    else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      document.getElementById('next-img').click();        // Next image
+    }
+  }
+});
+// =========================================================================
   // ==================== END FULLSCREEN LOGIC ====================
 
   backBtn.onclick = () => {
