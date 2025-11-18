@@ -141,7 +141,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('close-fs').onclick = e => { e.stopPropagation(); fs.classList.add('hidden'); };
   document.getElementById('prev-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx - 1 + currentImages.length) % currentImages.length; updateFS(); };
   document.getElementById('next-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx + 1) % currentImages.length; updateFS(); };
-
+// Make top logo go to Home (same as bottom Home tab)
+document.getElementById('home-link-top')?.addEventListener('click', e => {
+  e.preventDefault();
+  openTab('home');
+});
   // Swipe
   let startX = 0;
   fs.addEventListener('touchstart', e => startX = e.touches[0].clientX);
