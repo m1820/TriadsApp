@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
     about.onclick = e => { e.stopPropagation(); showAbout(); menuDropdown.classList.remove('active'); };
     menuItems.appendChild(about);
   }
-
+  
 function showAbout() {
   const modal = document.createElement('div');
   modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;';
