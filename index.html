@@ -35,42 +35,13 @@
   <h1 class="visually-hidden">Guitar Triads – Movable Shapes, Patterns & Nashville Number System (Free)</h1>
 
   <div id="app">
-<nav id="nav-bar">
-  <!-- Back button (only shows when needed) -->
-  <button id="back-btn" class="nav-btn">Back</button>
-
-  <!-- Centered logo + title -->
-  <div id="nav-center">
-    <div id="nav-logo">
-      <a href="#" id="home-link">
-        <img src="logo_small.png" alt="Triads" loading="eager" style="height:38px;width:auto;">
-      </a>
-    </div>
-    <div id="nav-title"></div>
-  </div>
-
-  <!-- RIGHT SIDE: Coffee + Menu (always on the right) -->
-  <div id="nav-right">
-    <a href="https://buymeacoffee.com/m1820" target="_blank" id="donate-btn" class="nav-btn desktop-only">
-      ☕ Coffee
-    </a>
-    <div id="menu-container">
-      <button id="menu-toggle" class="nav-btn">☰</button>
-      <div id="menu-dropdown" class="hidden">
-        <div id="menu-items"></div>
-        <a href="https://buymeacoffee.com/m1820" target="_blank" class="menu-dropdown-item mobile-only">
-          ☕ Buy me a Coffee
-        </a>
-      </div>
-    </div>
-  </div>
-</nav>
 
     <div id="coming-soon-notice">
       <span class="notice-text">More Triad Patterns coming soon.</span>
       <button id="dismiss-notice" class="notice-dismiss">Dismiss</button>
     </div>
 
+    <!-- HOME -->
     <section id="home" class="page active">
       <div id="menu-list"></div>
 
@@ -80,7 +51,7 @@
         </button>
       </div>
 
-      <div style="padding:40px 20px 20px;text-align:center;">
+      <div style="padding:40px 20px 120px;text-align:center;">
         <p style="color:#aaa;max-width:640px;margin:0 auto 20px;font-size:16px;line-height:1.6;">
           Learn every triad shape once → play in <strong>any key</strong> forever.<br>
           Free open-source app for worship leaders, rhythm players, and the Nashville Number System.
@@ -88,21 +59,82 @@
       </div>
     </section>
 
+    <!-- SHAPE DETAIL -->
     <section id="shape-detail" class="page">
       <h2 id="shape-title" class="page-title"></h2>
       <p id="goodfor-text" class="subheader"></p>
       <div id="submenu-list"></div>
     </section>
 
+    <!-- GALLERY -->
     <section id="gallery" class="page">
       <h2 id="gallery-title" class="page-title"></h2>
       <div id="image-grid"></div>
-      <div id="youtube-practice-container" class="hidden" style="text-align:center;margin:30px 20px 10px;">
+      <div id="youtube-practice-container" class="hidden" style="text-align:center;margin:30px 20px 120px;">
         <a id="youtube-practice-link" href="#" target="_blank" class="youtube-btn">
           <span style="font-size:28px;margin-right:8px;">Play</span>
           Practice this progression with the song on YouTube
         </a>
         <p style="font-size:13px;color:#888;margin-top:8px;">Opens in YouTube app/website</p>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="page-about" class="page">
+      <div id="about-content" style="padding:40px 20px;max-width:640px;margin:0 auto;"></div>
+    </section>
+
+    <!-- CONTRIBUTE -->
+    <section id="page-contribute" class="page">
+      <div id="contribute-content" style="padding:40px 20px;text-align:center;max-width:640px;margin:0 auto;">
+        <h2 style="font-size:26px;margin-bottom:20px;">Contribute to TriadsApp</h2>
+        <p style="font-size:16px;line-height:1.7;color:#ddd;">
+          TriadsApp is 100% community-driven and open source.<br><br>
+          Want to help make it even better?<br>
+          You can contribute by:
+        </p>
+        <ul style="text-align:left;margin:30px auto;display:inline-block;font-size:15px;line-height:1.8;color:#ccc;">
+          <li>Sharing your favorite movable triad shapes</li>
+          <li>Suggesting real song examples (YouTube links with timestamps)</li>
+          <li>Creating diagrams for new string sets or inversions</li>
+          <li>Reporting bugs or suggesting improvements</li>
+          <li>Translating the app to other languages</li>
+        </ul>
+        <p style="margin:30px 0;font-size:16px;color:#ddd;">
+          Just send your ideas, diagrams, or links to:<br><br>
+          <a href="#" onclick="event.preventDefault(); window.location.href='mailto:info@triadsapp.com?subject=TriadsApp%20Contribution'" style="color:#0a84ff;font-size:20px;font-weight:600;">
+            info@triadsapp.com
+          </a>
+        </p>
+        <p style="color:#888;font-size:14px;margin-top:40px;">
+          Every contribution helps thousands of guitarists worldwide.<br>Thank you for being part of this! 🎸
+        </p>
+      </div>
+    </section>
+
+    <!-- DONATE -->
+    <section id="page-donate" class="page">
+      <div id="donate-content" style="padding:40px 20px;text-align:center;max-width:640px;margin:0 auto;">
+        <h2 style="font-size:26px;margin-bottom:20px;">Support TriadsApp</h2>
+        <p style="font-size:16px;line-height:1.7;color:#ddd;">
+          TriadsApp is completely free and open source — forever.<br><br>
+          No ads, no paywalls, no subscriptions.<br><br>
+          If this app has helped you — and you’d like to keep it that way — consider supporting the project:
+        </p>
+        <div style="margin:40px 0;">
+          <a href="https://buymeacoffee.com/m1820" target="_blank" style="background:#FF813F;color:#000;padding:16px 32px;border-radius:14px;font-weight:700;font-size:18px;text-decoration:none;display:inline-block;">
+            ☕ Buy me a Coffee
+          </a>
+        </div>
+        <p style="margin:30px 0;">
+          <a href="https://github.com/sponsors/m1820" target="_blank" style="color:#ff6b6b;font-size:16px;font-weight:600;text-decoration:none;">
+            ❤️ Become a GitHub Sponsor
+          </a>
+        </p>
+        <p style="color:#888;font-size:14px;margin-top:40px;">
+          Every donation helps cover hosting and new features.<br>
+          Thank you from the bottom of my heart.
+        </p>
       </div>
     </section>
 
@@ -124,6 +156,26 @@
     <div id="install-lightbox">
       <img src="https://triadsapp.com/resources/Install_Instructions.gif" alt="How to add Triads App to Home Screen">
     </div>
+
+    <!-- v2 BOTTOM TAB BAR -->
+    <nav id="bottom-tab-bar">
+      <button id="tab-home" class="tab-btn active">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>Home</span>
+      </button>
+      <button id="tab-about" class="tab-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M11 17h2v-6h-2v6zm1-8h0"/></svg>
+        <span>About</span>
+      </button>
+      <button id="tab-contribute" class="tab-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17v-2h2v2h-2zm2-4h-2l-1-6h4l-1 6z"/></svg>
+        <span>Contribute</span>
+      </button>
+      <button id="tab-donate" class="tab-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+        <span>Donate</span>
+      </button>
+    </nav>
 
   </div>
 
