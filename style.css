@@ -14,150 +14,81 @@ body {
   line-height: 1.5;
 }
 
-/* NAV BAR — PERFECT ON EVERY PHONE */
-#nav-bar {
+/* SLIM TOP BAR — LOGO ONLY */
+#slim-top-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: 56px;
-  background: rgba(20,20,20,0.9);
+  background: rgba(15,15,15,0.95);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid #333;
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* changed from space-between */
-  padding: 0 12px;
+  padding-left: 16px;
   z-index: 1200;
+  padding-top: env(safe-area-inset-top);
 }
 
-/* Center logo/title */
-#nav-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+#top-logo-img {
+  height: 32px;
+  width: auto;
+}
+
+/* v2 BOTTOM TAB BAR — PERFECT */
+#bottom-tab-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 84px;
+  background: rgba(15,15,15,0.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid #333;
   display: flex;
+  justify-content: space-around;
   align-items: center;
-  gap: 10px;
-  pointer-events: none;
-}
-#nav-logo a { pointer-events: all;
+  z-index: 1300;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Force everything on the right */
-#nav-right {
-  margin-left: auto; /* pushes it to the far right */
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.nav-btn {
+.tab-btn {
+  flex: 1;
   background: none;
   border: none;
-  color: #fff;
+  color: #888;
+  font-size: 10.5px;
   font-weight: 600;
-  font-size: 17px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-#back-btn {
-  font-size: 17px;
-  padding: 8px 14px;
-}
-
-/* Buy me a Coffee button */
-#donate-btn {
-  background: linear-gradient(135deg, #ff9d00, #ff6b00);
-  color: black;
-  font-weight: 700;
-  font-size: 14px;
-  padding: 7px 12px;
-  border-radius: 10px;
-  white-space: nowrap;
-}
-
-.desktop-only { display: flex; }
-@media (max-width: 560px) {
-  .desktop-only { display: none; }
-}
-
-/* Hamburger menu button */
-#menu-toggle {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 28px;
-  padding: 6px 10px;
-  cursor: pointer;
-  width: 44px;
-  height: 44px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-/* MENU DROPDOWN — ALWAYS FLUSH TO THE HAMBURGER */
-#menu-container { position: relative; }
-
-#menu-dropdown {
-  position: absolute;
-  top: 100%;           /* directly under the button */
-  right: 0;            /* flush right */
-  left: auto;
-  width: 240px;
-  background: #1c1c1e;
-  border-radius: 14px;
-  padding: 8px 0;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-  border: 1px solid rgba(255,255,255,0.1);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px);
-  transition: all 0.2s ease;
-  z-index: 1200;
-}
-#menu-dropdown.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(4px);
-}
-
-.menu-dropdown-item {
-  padding: 14px 20px;
-  font-size: 15px;
-  color: #f0f0f0;
+  gap: 6px;
   cursor: pointer;
-}
-.menu-dropdown-item:hover { background: #2a2a2c; }
-
-.mobile-only {
-  display: none;
-  background: linear-gradient(135deg, #ff9d00, #ff6b00);
-  color: black;
-  padding: 14px 20px;
-  border-radius: 10px;
-  text-align: center;
-  margin: 10px 16px 6px;
-  font-weight: 700;
-}
-@media (max-width: 560px) {
-  .mobile-only { display: block; }
+  transition: color 0.2s;
 }
 
-/* Title in nav */
-#nav-title {
-  font-weight: 600;
+.tab-btn svg {
+  width: 26px;
+  height: 26px;
+}
+
+.tab-btn.active {
   color: #0a84ff;
-  font-size: 17px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 180px;
 }
+
+.tab-btn:active {
+  background: rgba(255,255,255,0.08);
+}
+
+/* Content spacing */
+.page {
+  padding-top: 76px !important;   /* space for top bar + safe area */
+  padding-bottom: 140px !important; /* space for bottom tab bar */
+}
+
+/* Hide old nav/footer */
+#nav-bar, #attribution { display: none !important; }
 
 /* PAGES */
-.page { display: none; padding: 20px 20px 80px; padding-top: 76px; }
+.page { display: none; }
 .page.active { display: block; }
 .page-title { text-align: center; margin: 0 0 16px; font-size: 22px; color: #fff; font-weight: 700; }
 .subheader { text-align: center; font-size: 15px; color: #aaa; font-style: italic; margin-bottom: 24px; line-height: 1.4; }
@@ -405,18 +336,6 @@ body {
 .notice-dismiss:hover { background: rgba(255,255,255,.4); transform: scale(1.1); }
 #coming-soon-notice.hidden { display: none !important; }
 
-/* FOOTER */
-#attribution {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  text-align: center; padding: 12px 20px; font-size: 12px; color: #aaa;
-  background: #1c1c1e; border-top: 1px solid #333; z-index: 50;
-}
-#attribution a { color: #0a84ff; text-decoration: none; margin: 0 6px; font-size: 18px; }
-#attribution a[href*="x.com"] { color: #fff; }
-#attribution a[href*="instagram"] { color: #E4405F; }
-#attribution a[href*="tiktok"] { color: #ff0050; }
-#attribution a[href*="facebook"] { color: #1877F2; }
-
 /* VISUALLY HIDDEN */
 .visually-hidden {
   position: absolute !important;
@@ -435,51 +354,3 @@ body {
   #menu-list, #submenu-list { grid-template-columns: 1fr 1fr; }
   .img-thumb { height: 110px; }
 }
-
-/* v2 BOTTOM TAB BAR — NATIVE iOS/Android STYLE */
-#bottom-tab-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  height: 80px;
-  background: rgba(15,15,15,0.95);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid #333;
-  display: flex;
-  z-index: 1300;
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
-.tab-btn {
-  flex: 1;
-  background: none;
-  border: none;
-  color: #666;
-  font-size: 11px;
-  font-weight: 600;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.tab-btn svg {
-  width: 26px;
-  height: 26px;
-}
-
-.tab-btn.active {
-  color: #0a84ff;
-}
-
-.tab-btn:active {
-  background: rgba(255,255,255,0.08);
-}
-
-/* Hide old top nav and footer */
-#nav-bar, #attribution { display: none !important; }
-
-/* Extra padding so content isn't hidden behind tab bar */
-.page { padding-bottom: 140px !important; }

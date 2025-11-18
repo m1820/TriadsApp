@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // v2 TAB SWITCHING
+  // ==================== v2 BOTTOM TAB BAR LOGIC ====================
   function openTab(tab) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
