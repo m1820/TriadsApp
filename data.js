@@ -16,6 +16,7 @@ const SHAPES_DATA = [
       },
       { name: "Example Song in E with 1 5 6 4 Progression",
         images: [
+          "resources/A_Major_Shaped_Triad/Example_Song_in_E_with_1-5-6-4_Progression/A_Major_E_Full_Pattern.jpg",
           "resources/A_Major_Shaped_Triad/Example_Song_in_E_with_1-5-6-4_Progression/1 E.png",
           "resources/A_Major_Shaped_Triad/Example_Song_in_E_with_1-5-6-4_Progression/5 B.png",
           "resources/A_Major_Shaped_Triad/Example_Song_in_E_with_1-5-6-4_Progression/6 C-sharp.png",
@@ -41,6 +42,7 @@ const SHAPES_DATA = [
       },
       { name: "Example Song in G with 1 5 6 4 Progression",
         images: [
+          "resources/A_Major7_Shaped_Triad/Example_Song_in_G_with_1-5-6-4_Progression/A_Majory7_G_Full_Pattern.jpg",
           "resources/A_Major7_Shaped_Triad/Example_Song_in_G_with_1-5-6-4_Progression/1 G.png",
           "resources/A_Major7_Shaped_Triad/Example_Song_in_G_with_1-5-6-4_Progression/5 D.png",
           "resources/A_Major7_Shaped_Triad/Example_Song_in_G_with_1-5-6-4_Progression/6 Em.png",
@@ -65,6 +67,7 @@ const SHAPES_DATA = [
       },
       { name: "Example Song in E with 1 5 6 4 Progression",
         images: [
+          "resources/Shape_Triad/Example_Song_in_E_with_1-5-6-4_Progression/Shape_E_Full_Pattern.jpg",
           "resources/Shape_Triad/Example_Song_in_E_with_1-5-6-4_Progression/1 E.png",
           "resources/Shape_Triad/Example_Song_in_E_with_1-5-6-4_Progression/5 B.png",
           "resources/Shape_Triad/Example_Song_in_E_with_1-5-6-4_Progression/6 C-sharp.png",
