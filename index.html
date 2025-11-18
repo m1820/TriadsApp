@@ -35,24 +35,36 @@
   <h1 class="visually-hidden">Guitar Triads – Movable Shapes, Patterns & Nashville Number System (Free)</h1>
 
   <div id="app">
-    <nav id="nav-bar">
-      <button id="back-btn" class="nav-btn">Back</button>
-      <div id="nav-logo">
-        <a href="#" id="home-link">
-          <img src="logo_small.png" alt="Triads" loading="eager" style="height:38px;width:auto;">
+<nav id="nav-bar">
+  <!-- Back button (only shows when needed) -->
+  <button id="back-btn" class="nav-btn">Back</button>
+
+  <!-- Centered logo + title -->
+  <div id="nav-center">
+    <div id="nav-logo">
+      <a href="#" id="home-link">
+        <img src="logo_small.png" alt="Triads" loading="eager" style="height:38px;width:auto;">
+      </a>
+    </div>
+    <div id="nav-title"></div>
+  </div>
+
+  <!-- RIGHT SIDE: Coffee + Menu (always on the right) -->
+  <div id="nav-right">
+    <a href="https://buymeacoffee.com/m1820" target="_blank" id="donate-btn" class="nav-btn desktop-only">
+      ☕ Coffee
+    </a>
+    <div id="menu-container">
+      <button id="menu-toggle" class="nav-btn">☰</button>
+      <div id="menu-dropdown" class="hidden">
+        <div id="menu-items"></div>
+        <a href="https://buymeacoffee.com/m1820" target="_blank" class="menu-dropdown-item mobile-only">
+          ☕ Buy me a Coffee
         </a>
       </div>
-      <div id="nav-title"></div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <a href="https://buymeacoffee.com/m1820" target="_blank" id="donate-btn" class="nav-btn">
-          <span class="donate-icon">Buy me a Coffee</span>
-        </a>
-        <div id="menu-container">
-          <button id="menu-toggle" class="nav-btn">Menu</button>
-          <div id="menu-dropdown" class="hidden"><div id="menu-items"></div></div>
-        </div>
-      </div>
-    </nav>
+    </div>
+  </div>
+</nav>
 
     <div id="coming-soon-notice">
       <span class="notice-text">More Triad Patterns coming soon.</span>
@@ -62,7 +74,6 @@
     <section id="home" class="page active">
       <div id="menu-list"></div>
 
-      <!-- INSTALL BUTTON – only on home page -->
       <div id="install-instructions-container">
         <button id="install-instructions-btn" class="install-btn">
           <span style="font-size:28px;margin-right:8px;">⬇️</span> Add to Home Screen (Install)
@@ -95,7 +106,7 @@
       </div>
     </section>
 
-    <!-- FULLSCREEN IMAGE VIEWER -->
+    <!-- FULLSCREEN -->
     <div id="fullscreen" class="hidden">
       <img id="fs-image" src="" alt="" />
       <div id="fs-overlay-controls">
@@ -109,17 +120,11 @@
       </div>
     </div>
 
-    <!-- INSTALL INSTRUCTIONS LIGHTBOX (hidden by CSS, not .hidden class) -->
+    <!-- INSTALL LIGHTBOX -->
     <div id="install-lightbox">
       <img src="https://triadsapp.com/resources/Install_Instructions.gif" alt="How to add Triads App to Home Screen">
     </div>
 
-    <footer id="attribution">
-      TriadsApp is Open Source! | 
-      <a href="https://github.com/m1820/TriadsApp" target="_blank">GitHub</a> | 
-      <a href="https://github.com/sponsors/m1820" target="_blank">Sponsor</a><br>
-      Diagrams by <a href="https://zeitbach.com/projects/fretboard-diagram-creator/" target="_blank">Fretboard Diagram Creator</a>
-    </footer>
   </div>
 
   <script src="data.js"></script>
