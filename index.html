@@ -91,18 +91,20 @@
         <p style="font-size:13px;color:#888;margin-top:8px;">Opens in YouTube app/website</p>
       </div>
     </section>
-
-    <div id="fullscreen" class="hidden">
-      <img id="fs-image" src="" alt="" />
-      <div id="fs-caption"></div>
-      <div id="fs-controls">
-        <button id="prev-img" class="fs-btn">&#x25C0</button>
-        <button id="next-img" class="fs-btn">&#x25B6</button>
-      </div>
-      <button id="close-fs" class="fs-btn">×</button>
-      <div id="fs-counter"></div>
+<div id="fullscreen" class="hidden">
+  <img id="fs-image" src="" alt="" />
+  
+  <!-- Overlay controls that appear on tap -->
+  <div id="fs-overlay-controls">
+    <button id="close-fs" class="fs-btn">×</button>
+    <div id="fs-counter"></div>
+    <div id="fs-caption"></div>
+    <div id="fs-nav-bottom">
+      <button id="prev-img" class="fs-btn">&#x25C0</button>
+      <button id="next-img" class="fs-btn">&#x25B6</button>
     </div>
-
+  </div>
+</div>
     <footer id="attribution">
       TriadsApp is Open Source! | 
       <a href="https://github.com/m1820/TriadsApp" target="_blank">GitHub</a> | 

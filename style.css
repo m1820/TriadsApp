@@ -258,3 +258,108 @@ body {
   white-space: nowrap !important;
   border: 0 !important;
 }
+
+#fullscreen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+#fs-image {
+  max-width: 100vw;
+  max-height: 100vh;
+  object-fit: contain;
+  transition: none; /* instant load feel */
+}
+
+#fs-overlay-controls {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;     /* column = top → bottom */
+  justify-content: flex-start; /* changed from space-between */
+  padding: 20px;
+  box-sizing: border-box;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+}
+
+#fs-overlay-controls.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Force correct vertical order */
+#close-fs { order: 1; }
+#fs-counter { order: 2; }
+#fs-caption { order: 3; margin-top: auto; margin-bottom: 20px; }  /* pushes arrows down */
+#fs-nav-bottom { order: 4; }
+
+/* Top row: close button + counter */
+#close-fs {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 40px;
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#fs-counter {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(0,0,0,0.5);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+/* Caption in the middle-bottom */
+#fs-caption {
+  background: rgba(0,0,0,0.6);
+  padding: 10px 16px;
+  border-radius: 8px;
+  max-width: 90%;
+  margin: 0 auto;
+  font-size: 16px;
+  backdrop-filter: blur(4px);
+}
+
+/* Bottom navigation arrows */
+#fs-nav-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 100px;          /* a little more space looks nicer on phones */
+  margin-top: auto;    /* pushes it to the bottom */
+  padding-bottom: 30px; /* extra breathing room from the screen edge */
+}
+
+#fs-nav-bottom button {
+  font-size: 56px;     /* slightly bigger for easy tapping */
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  backdrop-filter: blur(4px);
+}

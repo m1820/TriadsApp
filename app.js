@@ -16,8 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const backBtn = document.getElementById('back-btn');
   const fs = document.getElementById('fullscreen');
   const fsImg = document.getElementById('fs-image');
-  const fsControls = document.getElementById('fs-controls');
-  const fsClose = document.getElementById('close-fs');
+  const fsOverlay = document.getElementById('fs-overlay-controls'); // ← new
   const fsCounter = document.getElementById('fs-counter');
   const fsCaption = document.getElementById('fs-caption');
   const menuToggle = document.getElementById('menu-toggle');
@@ -97,40 +96,75 @@ document.addEventListener('DOMContentLoaded', () => {
     switchPage('gallery');
   }
 
+  // ==================== FULLSCREEN LOGIC (UPDATED) ====================
+
   function openFS(i) {
-    currentIdx = i; updateFS();
+    currentIdx = i;
+    updateFS();
     fs.classList.remove('hidden');
     hideControls();
-    fs.onclick = e => { if (!e.target.closest('.fs-btn') && e.target !== fsImg) showControls(); };
+
+    // Tap anywhere (except buttons) toggles controls
+    fs.onclick = (e) => {
+      if (e.target.closest('button') || e.target.closest('#fs-overlay-controls')) return;
+      if (fsOverlay.classList.contains('active')) {
+        hideControls();
+      } else {
+        showControls();
+      }
+    };
+  }
+
+  function showControls() {
+    fsOverlay.classList.add('active');
+    clearTimeout(window.fsTimeout);
+    window.fsTimeout = setTimeout(hideControls, 4000);
+  }
+
+  function hideControls() {
+    fsOverlay.classList.remove('active');
   }
 
   function updateFS() {
     fsImg.src = currentImages[currentIdx];
     fsCounter.textContent = `${currentIdx + 1} / ${currentImages.length}`;
-    const cleanName = currentImages[currentIdx].split('/').pop().replace('.png','').replace('-sharp','#').replace(/\s+/g,' ');
+    const cleanName = currentImages[currentIdx].split('/').pop()
+      .replace('.png', '')
+      .replace('-sharp', '#')
+      .replace(/\s+/g, ' ');
     fsCaption.textContent = cleanName;
     hideControls();
   }
 
-  function showControls() {
-    [fsControls, fsClose, fsCounter, fsCaption].forEach(el => el?.classList.add('active'));
-    clearTimeout(window.fsTimeout);
-    window.fsTimeout = setTimeout(hideControls, 3000);
-  }
-  function hideControls() {
-    [fsControls, fsClose, fsCounter, fsCaption].forEach(el => el?.classList.remove('active'));
-  }
+  // Button controls
+  document.getElementById('close-fs').onclick = (e) => {
+    e.stopPropagation();
+    fs.classList.add('hidden');
+  };
 
-  fsClose.onclick = e => { e.stopPropagation(); fs.classList.add('hidden'); };
-  document.getElementById('prev-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx - 1 + currentImages.length) % currentImages.length; updateFS(); };
-  document.getElementById('next-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx + 1) % currentImages.length; updateFS(); };
+  document.getElementById('prev-img').onclick = (e) => {
+    e.stopPropagation();
+    currentIdx = (currentIdx - 1 + currentImages.length) % currentImages.length;
+    updateFS();
+  };
 
+  document.getElementById('next-img').onclick = (e) => {
+    e.stopPropagation();
+    currentIdx = (currentIdx + 1) % currentImages.length;
+    updateFS();
+  };
+
+  // Swipe support
   let startX = 0;
   fs.addEventListener('touchstart', e => startX = e.touches[0].clientX);
   fs.addEventListener('touchend', e => {
     const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) diff > 0 ? document.getElementById('next-img').click() : document.getElementById('prev-img').click();
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? document.getElementById('next-img').click() : document.getElementById('prev-img').click();
+    }
   });
+
+  // ==================== END FULLSCREEN LOGIC ====================
 
   backBtn.onclick = () => {
     if (pages.gallery.classList.contains('active')) {
@@ -140,7 +174,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // FINAL PERFECT SWITCHPAGE
   function switchPage(name) {
     Object.values(pages).forEach(p => p.classList.remove('active'));
     pages[name].classList.add('active');
