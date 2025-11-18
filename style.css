@@ -363,3 +363,49 @@ body {
   user-select: none;
   backdrop-filter: blur(4px);
 }
+/* Install button – only visible on home */
+#install-instructions-container {
+  text-align: center;
+  margin: 25px 0;
+  display: none;               /* hidden by default */
+}
+
+#home.active #install-instructions-container {
+  display: block;              /* shown only when home page is active */
+}
+
+.install-btn {
+  background: #0a84ff;
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(10,132,255,0.3);
+}
+
+/* Install instructions lightbox */
+#install-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.96);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#install-lightbox.active {
+  display: flex;
+}
+
+#install-lightbox img {
+  max-width: 100%;
+  max-height: 100vh;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+}

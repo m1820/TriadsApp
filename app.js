@@ -24,9 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuItems = document.getElementById('menu-items');
   const notice = document.getElementById('coming-soon-notice');
   const dismissBtn = document.getElementById('dismiss-notice');
+// Install button + lightbox
+const installBtn = document.getElementById('install-instructions-btn');
+const installLightbox = document.getElementById('install-lightbox');
 
-  let currentImages = [], currentIdx = 0;
-  let currentShape = null, currentGallery = '';
+installBtn.onclick = () => installLightbox.classList.add('active');
+installLightbox.onclick = () => installLightbox.classList.remove('active');
 
   // Dismiss notice
   if (localStorage.getItem('noticeDismissed') === 'true') notice.classList.add('hidden');
@@ -183,8 +186,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (name === 'home') {
       navTitle.textContent = '';
+      installBtnContainer?.classList.remove('hidden');   // Show Install Button
     } else {
       navTitle.textContent = name === 'detail' ? currentShape?.name : currentGallery;
+      installBtnContainer?.classList.add('hidden');      // Hide Install Button
     }
 
     backBtn.style.display = name === 'home' ? 'none' : 'flex';

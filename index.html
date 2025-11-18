@@ -37,17 +37,12 @@
   <div id="app">
     <nav id="nav-bar">
       <button id="back-btn" class="nav-btn">Back</button>
-
-      <!-- LOGO LEFT + CLICKABLE -->
       <div id="nav-logo">
         <a href="#" id="home-link">
           <img src="logo_small.png" alt="Triads" loading="eager" style="height:38px;width:auto;">
         </a>
       </div>
-
-      <!-- CENTER TITLE -->
       <div id="nav-title"></div>
-
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="https://buymeacoffee.com/m1820" target="_blank" id="donate-btn" class="nav-btn">
           <span class="donate-icon">Buy me a Coffee</span>
@@ -66,6 +61,14 @@
 
     <section id="home" class="page active">
       <div id="menu-list"></div>
+
+      <!-- INSTALL BUTTON – only on home page -->
+      <div id="install-instructions-container">
+        <button id="install-instructions-btn" class="install-btn">
+          <span style="font-size:28px;margin-right:8px;">⬇️</span> Add to Home Screen (Install)
+        </button>
+      </div>
+
       <div style="padding:40px 20px 20px;text-align:center;">
         <p style="color:#aaa;max-width:640px;margin:0 auto 20px;font-size:16px;line-height:1.6;">
           Learn every triad shape once → play in <strong>any key</strong> forever.<br>
@@ -91,20 +94,26 @@
         <p style="font-size:13px;color:#888;margin-top:8px;">Opens in YouTube app/website</p>
       </div>
     </section>
-<div id="fullscreen" class="hidden">
-  <img id="fs-image" src="" alt="" />
-  
-  <!-- Overlay controls that appear on tap -->
-  <div id="fs-overlay-controls">
-    <button id="close-fs" class="fs-btn">×</button>
-    <div id="fs-counter"></div>
-    <div id="fs-caption"></div>
-    <div id="fs-nav-bottom">
-      <button id="prev-img" class="fs-btn">&#x25C0</button>
-      <button id="next-img" class="fs-btn">&#x25B6</button>
+
+    <!-- FULLSCREEN IMAGE VIEWER -->
+    <div id="fullscreen" class="hidden">
+      <img id="fs-image" src="" alt="" />
+      <div id="fs-overlay-controls">
+        <button id="close-fs" class="fs-btn">×</button>
+        <div id="fs-counter"></div>
+        <div id="fs-caption"></div>
+        <div id="fs-nav-bottom">
+          <button id="prev-img" class="fs-btn">‹</button>
+          <button id="next-img" class="fs-btn">›</button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+
+    <!-- INSTALL INSTRUCTIONS LIGHTBOX (hidden by CSS, not .hidden class) -->
+    <div id="install-lightbox">
+      <img src="https://triadsapp.com/resources/Install_Instructions.gif" alt="How to add Triads App to Home Screen">
+    </div>
+
     <footer id="attribution">
       TriadsApp is Open Source! | 
       <a href="https://github.com/m1820/TriadsApp" target="_blank">GitHub</a> | 
