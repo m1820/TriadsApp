@@ -100,7 +100,13 @@ document.addEventListener('DOMContentLoaded', () => {
       wrapper.style.cssText = 'display:flex;flex-direction:column;align-items:center;';
       const img = document.createElement('img');
       img.src = src; img.className = 'img-thumb'; img.onclick = () => openFS(i);
-      const cleanName = src.split('/').pop().replace('.png','').replace('-sharp','#').replace(/\s+/g,' ');
+      let cleanName = src.split('/').pop()                // e.g. "1 G.png"
+  .replace(/\.(png|jpg|jpeg|webp|gif)$/i, '')      // remove extension
+  .replace(/^\d+[\s\.\-_]*\s*/i, '')               // ← THIS REMOVES THE LEADING NUMBER
+  .replace(/-sharp/gi, '#')
+  .replace(/\s+/g, ' ')
+  .trim();
+if (cleanName.match(/\b([A-G])#\b/i)) cleanName = cleanName.replace('#', '♯');
       const caption = document.createElement('div');
       caption.className = 'img-caption'; caption.textContent = cleanName;
       wrapper.appendChild(img); wrapper.appendChild(caption);
@@ -148,8 +154,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateFS() {
     fsImg.src = currentImages[currentIdx];
     fsCounter.textContent = `${currentIdx + 1} / ${currentImages.length}`;
-    const cleanName = currentImages[currentIdx].split('/').pop()
-      .replace('.png', '').replace('-sharp', '#').replace(/\s+/g, ' ');
+    let cleanName = currentImages[currentIdx].split('/').pop()
+  .replace(/\.(png|jpg|jpeg|webp|gif)$/i, '')
+  .replace(/^\d+[\s\.\-_]*\s*/i, '')               // ← REMOVES 1, 01, 10, etc.
+  .replace(/-sharp/gi, '#')
+  .replace(/\s+/g, ' ')
+  .trim();
+if (cleanName.match(/\b([A-G])#\b/i)) cleanName = cleanName.replace('#', '♯');
+fsCaption.textContent = cleanName;
     fsCaption.textContent = cleanName;
     hideControls();
   }
