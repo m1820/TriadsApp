@@ -41,7 +41,13 @@
     <img src="logo_small.png" alt="Triads" id="top-logo-img">
   </a>
 </div>
-
+<!-- SLIM TOP BAR WITH LOGO + BACK BUTTON (back only shows when needed) -->
+<div id="slim-top-bar">
+  <a href="#" id="home-link-top">
+    <img src="logo_small.png" alt="Triads" id="top-logo-img">
+  </a>
+  <button id="back-btn-top" class="back-btn-top">Back</button>
+</div>
     <div id="coming-soon-notice">
       <span class="notice-text">More Triad Patterns coming soon.</span>
       <button id="dismiss-notice" class="notice-dismiss">Dismiss</button>
@@ -91,32 +97,34 @@
     </section>
 
     <!-- CONTRIBUTE -->
-    <section id="page-contribute" class="page">
-      <div id="contribute-content" style="padding:40px 20px;text-align:center;max-width:640px;margin:0 auto;">
-        <h2 style="font-size:26px;margin-bottom:20px;">Contribute to TriadsApp</h2>
-        <p style="font-size:16px;line-height:1.7;color:#ddd;">
-          TriadsApp is 100% community-driven and open source.<br><br>
-          Want to help make it even better?<br>
-          You can contribute by:
-        </p>
-        <ul style="text-align:left;margin:30px auto;display:inline-block;font-size:15px;line-height:1.8;color:#ccc;">
-          <li>Sharing your favorite movable triad shapes</li>
-          <li>Suggesting real song examples (YouTube links with timestamps)</li>
-          <li>Creating diagrams for new string sets or inversions</li>
-          <li>Reporting bugs or suggesting improvements</li>
-          <li>Translating the app to other languages</li>
-        </ul>
-        <p style="margin:30px 0;font-size:16px;color:#ddd;">
-          Just send your ideas, diagrams, or links to:<br><br>
-          <a href="#" onclick="event.preventDefault(); window.location.href='mailto:info@triadsapp.com?subject=TriadsApp%20Contribution'" style="color:#0a84ff;font-size:20px;font-weight:600;">
-            info@triadsapp.com
-          </a>
-        </p>
-        <p style="color:#888;font-size:14px;margin-top:40px;">
-          Every contribution helps thousands of guitarists worldwide.<br>Thank you for being part of this! 🎸
-        </p>
-      </div>
-    </section>
+<section id="page-contribute" class="page">
+  <div id="contribute-content" style="padding:40px 20px;text-align:center;max-width:640px;margin:0 auto;">
+    <h2 style="font-size:26px;margin-bottom:20px;">Contribute to TriadsApp</h2>
+    <p style="font-size:16px;line-height:1.7;color:#ddd;">
+      TriadsApp is 100% community-driven and open source.<br><br>
+      Want to help make it even better?<br>
+      You can contribute by:
+    </p>
+    <ul style="text-align:left;margin:30px auto;display:inline-block;font-size:15px;line-height:1.8;color:#ccc;">
+      <li>Sharing your favorite movable triad shapes</li>
+      <li>Suggesting real song examples (YouTube links with timestamps)</li>
+      <li>Creating diagrams for new string sets or inversions<br>
+          → Use the free <a href="https://zeitbach.com/projects/fretboard-diagram-creator/" target="_blank" style="color:#0a84ff;font-weight:600;">Fretboard Diagram Creator</a>
+      </li>
+      <li>Reporting bugs or suggesting improvements</li>
+      <li>Translating the app to other languages</li>
+    </ul>
+    <p style="margin:30px 0;font-size:16px;color:#ddd;">
+      Just send your ideas, diagrams, or links to:<br><br>
+      <a href="#" onclick="event.preventDefault(); window.location.href='mailto:info@triadsapp.com?subject=TriadsApp%20Contribution'" style="color:#0a84ff;font-size:20px;font-weight:600;">
+        info@triadsapp.com
+      </a>
+    </p>
+    <p style="color:#888;font-size:14px;margin-top:40px;">
+      Every contribution helps thousands of guitarists worldwide.<br>Thank you for being part of this! 🎸
+    </p>
+  </div>
+</section>
 
     <!-- DONATE -->
     <section id="page-donate" class="page">

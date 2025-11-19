@@ -36,8 +36,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const pageDonate = document.getElementById('page-donate');
   const aboutContent = document.getElementById('about-content');
 
+  // Top-right Back button
+  const backBtnTop = document.getElementById('back-btn-top');
+
+  // Top-left logo
+  document.getElementById('home-link-top')?.addEventListener('click', e => {
+    e.preventDefault();
+    openTab('home');
+  });
+
   let currentImages = [], currentIdx = 0;
   let currentShape = null, currentGallery = '';
+
+  // Navigation history for proper Back button
+  let navigationHistory = ['home'];
 
   // Dismiss notice
   if (localStorage.getItem('noticeDismissed') === 'true') notice.classList.add('hidden');
@@ -73,7 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
       card.onclick = () => showGallery(sub.name, sub.images);
       submenuList.appendChild(card);
     });
+    navigationHistory.push('detail');
     switchPage('detail');
+    updateBackButton();
   }
 
   function showGallery(title, imgs) {
@@ -103,7 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
       youtubeLink.href = 'https://www.youtube.com/watch?v=Lpx4Mrj6dyo';
       youtubeContainer.classList.remove('hidden');
     }
+    navigationHistory.push('gallery');
     switchPage('gallery');
+    updateBackButton();
   }
 
   function openFS(i) {
@@ -141,11 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('close-fs').onclick = e => { e.stopPropagation(); fs.classList.add('hidden'); };
   document.getElementById('prev-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx - 1 + currentImages.length) % currentImages.length; updateFS(); };
   document.getElementById('next-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx + 1) % currentImages.length; updateFS(); };
-// Make top logo go to Home (same as bottom Home tab)
-document.getElementById('home-link-top')?.addEventListener('click', e => {
-  e.preventDefault();
-  openTab('home');
-});
+
   // Swipe
   let startX = 0;
   fs.addEventListener('touchstart', e => startX = e.touches[0].clientX);
@@ -171,12 +183,16 @@ document.getElementById('home-link-top')?.addEventListener('click', e => {
     if (installBtnContainer) {
       installBtnContainer.classList.toggle('hidden', name !== 'home');
     }
+
+    updateBackButton();
   }
 
-  // ==================== v2 BOTTOM TAB BAR LOGIC ====================
+  // v2 TAB SWITCHING
   function openTab(tab) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+    navigationHistory = ['home']; // reset history on tab change
 
     if (tab === 'home') {
       pages.home.classList.add('active');
@@ -226,12 +242,36 @@ document.getElementById('home-link-top')?.addEventListener('click', e => {
       pageDonate.classList.add('active');
       tabDonate.classList.add('active');
     }
+
+    updateBackButton();
   }
 
+  function updateBackButton() {
+    const isInTriad = navigationHistory[navigationHistory.length - 1] === 'detail' ||
+                      navigationHistory[navigationHistory.length - 1] === 'gallery';
+
+    backBtnTop.classList.toggle('visible', isInTriad);
+  }
+
+  // Click handlers
   tabHome.onclick = () => openTab('home');
   tabAbout.onclick = () => openTab('about');
   tabContribute.onclick = () => openTab('contribute');
   tabDonate.onclick = () => openTab('donate');
+
+  // Top-right Back button — smart previous page
+  backBtnTop.onclick = () => {
+    navigationHistory.pop(); // remove current
+    const previous = navigationHistory[navigationHistory.length - 1] || 'home';
+
+    if (previous === 'home') {
+      openTab('home');
+    } else if (previous === 'detail') {
+      switchPage('detail');
+    } else if (previous === 'gallery') {
+      switchPage('gallery');
+    }
+  };
 
   renderHome();
   openTab('home');
