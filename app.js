@@ -279,6 +279,17 @@ document.addEventListener("DOMContentLoaded", () => {
             <p>No more memorizing hundreds of chords. Just learn a movable shape, know the root, and you’re ready.</p>
             <p>Perfect for worship leaders, songwriters, and rhythm players.</p>
           </div>
+          <div style="margin:40px 0 30px;background:#111;border-radius:16px;padding:24px 20px;max-width:560px;margin-left:auto;margin-right:auto;">
+      <h3 style="font-size:18px;color:#0a84ff;margin:0 0 20px;">What this actually gives you</h3>
+      <ul style="text-align:left;margin:0 auto;display:inline-block;line-height:1.8;font-size:15px;color:#ddd;">
+        <li>One shape → every key forever</li>
+        <li>Never lost when the key changes mid-set</li>
+        <li>Play 95 % of modern songs with just triads</li>
+        <li>Nashville Number System in your fingers</li>
+        <li>Zero chord memorization</li>
+        <li>Works offline · installs to home screen</li>
+      </ul>
+    </div>
           <div style="margin:40px 0;display:flex;justify-content:center;gap:32px;">
             <a href="https://x.com/triadsapp" target="_blank"><svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
             <a href="https://instagram.com/triadsapp" target="_blank"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E4405F" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><line x1="16.5" y1="7.5" x2="16.5" y2="7.51"/></svg></a>

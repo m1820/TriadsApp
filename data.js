@@ -139,4 +139,4 @@ async function loadSubheader(n){const m={
 }
 window.loadSubheader = loadSubheader;
 
-const APP_VERSION = "v2.0";
+const APP_VERSION = "v2.1";
