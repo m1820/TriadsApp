@@ -1,68 +1,73 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   const pages = {
-    home: document.getElementById('home'),
-    detail: document.getElementById('shape-detail'),
-    gallery: document.getElementById('gallery')
+    home: document.getElementById("home"),
+    detail: document.getElementById("shape-detail"),
+    gallery: document.getElementById("gallery"),
   };
-  const menuList = document.getElementById('menu-list');
-  const submenuList = document.getElementById('submenu-list');
-  const imageGrid = document.getElementById('image-grid');
-  const shapeTitle = document.getElementById('shape-title');
-  const goodforText = document.getElementById('goodfor-text');
-  const galleryTitle = document.getElementById('gallery-title');
-  const fs = document.getElementById('fullscreen');
-  const fsImg = document.getElementById('fs-image');
-  const fsOverlay = document.getElementById('fs-overlay-controls');
-  const fsCounter = document.getElementById('fs-counter');
-  const fsCaption = document.getElementById('fs-caption');
-  const notice = document.getElementById('coming-soon-notice');
-  const dismissBtn = document.getElementById('dismiss-notice');
+  const menuList = document.getElementById("menu-list");
+  const submenuList = document.getElementById("submenu-list");
+  const imageGrid = document.getElementById("image-grid");
+  const shapeTitle = document.getElementById("shape-title");
+  const goodforText = document.getElementById("goodfor-text");
+  const galleryTitle = document.getElementById("gallery-title");
+  const fs = document.getElementById("fullscreen");
+  const fsImg = document.getElementById("fs-image");
+  const fsOverlay = document.getElementById("fs-overlay-controls");
+  const fsCounter = document.getElementById("fs-counter");
+  const fsCaption = document.getElementById("fs-caption");
+  const notice = document.getElementById("coming-soon-notice");
+  const dismissBtn = document.getElementById("dismiss-notice");
 
   // Install
-  const installBtn = document.getElementById('install-instructions-btn');
-  const installLightbox = document.getElementById('install-lightbox');
-  const installBtnContainer = document.getElementById('install-instructions-container');
+  const installBtn = document.getElementById("install-instructions-btn");
+  const installLightbox = document.getElementById("install-lightbox");
+  const installBtnContainer = document.getElementById(
+    "install-instructions-container"
+  );
 
-  installBtn.onclick = () => installLightbox.classList.add('active');
-  installLightbox.onclick = () => installLightbox.classList.remove('active');
+  installBtn.onclick = () => installLightbox.classList.add("active");
+  installLightbox.onclick = () => installLightbox.classList.remove("active");
 
   // v2 Tabs
-  const tabHome = document.getElementById('tab-home');
-  const tabAbout = document.getElementById('tab-about');
-  const tabContribute = document.getElementById('tab-contribute');
-  const tabDonate = document.getElementById('tab-donate');
-  const pageAbout = document.getElementById('page-about');
-  const pageContribute = document.getElementById('page-contribute');
-  const pageDonate = document.getElementById('page-donate');
-  const aboutContent = document.getElementById('about-content');
+  const tabHome = document.getElementById("tab-home");
+  const tabAbout = document.getElementById("tab-about");
+  const tabContribute = document.getElementById("tab-contribute");
+  const tabDonate = document.getElementById("tab-donate");
+  const pageAbout = document.getElementById("page-about");
+  const pageContribute = document.getElementById("page-contribute");
+  const pageDonate = document.getElementById("page-donate");
+  const aboutContent = document.getElementById("about-content");
 
   // Top-right Back button
-  const backBtnTop = document.getElementById('back-btn-top');
+  const backBtnTop = document.getElementById("back-btn-top");
 
   // Top-left logo
-  document.getElementById('home-link-top')?.addEventListener('click', e => {
+  document.getElementById("home-link-top")?.addEventListener("click", (e) => {
     e.preventDefault();
-    openTab('home');
+    openTab("home");
   });
 
-  let currentImages = [], currentIdx = 0;
-  let currentShape = null, currentGallery = '';
+  let currentImages = [],
+    currentIdx = 0;
+  let currentShape = null,
+    currentGallery = "";
 
   // Navigation history for proper Back button
-  let navigationHistory = ['home'];
+  let navigationHistory = ["home"];
 
   // Dismiss notice
-  if (localStorage.getItem('noticeDismissed') === 'true') notice.classList.add('hidden');
+  if (localStorage.getItem("noticeDismissed") === "true")
+    notice.classList.add("hidden");
   dismissBtn.onclick = () => {
-    notice.classList.add('hidden');
-    localStorage.setItem('noticeDismissed', 'true');
+    notice.classList.add("hidden");
+    localStorage.setItem("noticeDismissed", "true");
   };
 
   function renderHome() {
-    menuList.innerHTML = '';
+    menuList.innerHTML = "";
     SHAPES_DATA.forEach((shape, i) => {
-      const card = document.createElement('div');
-      card.className = 'menu-card';
+      const card = document.createElement("div");
+      card.className = "menu-card";
       const thumb = shape.submenus[0].images[0];
       card.innerHTML = `<img src="${thumb}" alt=""><p>${shape.name}</p>`;
       card.onclick = () => showDetail(i);
@@ -74,126 +79,175 @@ document.addEventListener('DOMContentLoaded', () => {
     const shape = SHAPES_DATA[idx];
     currentShape = shape;
     shapeTitle.textContent = shape.name;
-    goodforText.textContent = '…';
-    submenuList.innerHTML = '';
+    goodforText.textContent = "…";
+    submenuList.innerHTML = "";
     const txt = await loadGoodFor(shape.name);
-    goodforText.textContent = txt.trim() || 'No description';
-    shape.submenus.forEach(sub => {
-      const card = document.createElement('div');
-      card.className = 'submenu-card';
+    goodforText.textContent = txt.trim() || "";
+    shape.submenus.forEach((sub) => {
+      const card = document.createElement("div");
+      card.className = "submenu-card";
       card.textContent = sub.name;
       card.onclick = () => showGallery(sub.name, sub.images);
       submenuList.appendChild(card);
     });
-    navigationHistory.push('detail');
-    switchPage('detail');
+    navigationHistory.push("detail");
+    switchPage("detail");
     updateBackButton();
   }
 
   function showGallery(title, imgs) {
     galleryTitle.textContent = title;
     currentGallery = title;
-    imageGrid.innerHTML = '';
+    imageGrid.innerHTML = "";
     currentImages = imgs;
     imgs.forEach((src, i) => {
-      const wrapper = document.createElement('div');
-      wrapper.style.cssText = 'display:flex;flex-direction:column;align-items:center;';
-      const img = document.createElement('img');
-      img.src = src; img.className = 'img-thumb'; img.onclick = () => openFS(i);
-      let cleanName = src.split('/').pop()                // e.g. "1 G.png"
-  .replace(/\.(png|jpg|jpeg|webp|gif)$/i, '')      // remove extension
-  .replace(/^\d+[\s\.\-_]*\s*/i, '')               // ← THIS REMOVES THE LEADING NUMBER
-  .replace(/-sharp/gi, '#')
-  .replace(/\s+/g, ' ')
-  .trim();
-if (cleanName.match(/\b([A-G])#\b/i)) cleanName = cleanName.replace('#', '♯');
-      const caption = document.createElement('div');
-      caption.className = 'img-caption'; caption.textContent = cleanName;
-      wrapper.appendChild(img); wrapper.appendChild(caption);
+      const wrapper = document.createElement("div");
+      wrapper.style.cssText =
+        "display:flex;flex-direction:column;align-items:center;";
+      const img = document.createElement("img");
+      img.src = src;
+      img.className = "img-thumb";
+      img.onclick = () => openFS(i);
+      let cleanName = src
+        .split("/")
+        .pop() // e.g. "1 G.png"
+        .replace(/\.(png|jpg|jpeg|webp|gif)$/i, "") // remove extension
+        .replace(/^\d+[\s\.\-_]*\s*/i, "") // ← THIS REMOVES THE LEADING NUMBER
+        .replace(/_/g, " ")
+        .replace(/-sharp/gi, "#")
+        .replace(/\s+/g, " ")
+        .trim();
+      if (cleanName.match(/\b([A-G])#\b/i))
+        cleanName = cleanName.replace("#", "♯");
+      const caption = document.createElement("div");
+      caption.className = "img-caption";
+      caption.textContent = cleanName;
+      wrapper.appendChild(img);
+      wrapper.appendChild(caption);
       imageGrid.appendChild(wrapper);
     });
+    // === NEW: Dynamic YouTube buttons from songs.txt (auto-generated by build.py) ===
+    const youtubeContainer = document.getElementById(
+      "youtube-practice-container"
+    );
+    youtubeContainer.innerHTML = ""; // Clear any old buttons
+    youtubeContainer.classList.add("hidden"); // Hide by default
 
-    const youtubeContainer = document.getElementById('youtube-practice-container');
-    const youtubeLink = document.getElementById('youtube-practice-link');
-    youtubeContainer.classList.add('hidden');
-    if (title.includes('Example Song in E') || title.includes('Example song in E')) {
-      youtubeLink.href = 'https://www.youtube.com/watch?v=u8bsQmi3MMU';
-      youtubeContainer.classList.remove('hidden');
-    } else if (title.includes('Example Song in G') || title.includes('Example song in G')) {
-      youtubeLink.href = 'https://www.youtube.com/watch?v=Lpx4Mrj6dyo';
-      youtubeContainer.classList.remove('hidden');
+    // Find the current submenu that matches the gallery title
+    const currentSubmenu = currentShape.submenus.find((s) => s.name === title);
+
+    if (currentSubmenu?.songs && currentSubmenu.songs.length > 0) {
+      currentSubmenu.songs.forEach((song) => {
+        const btn = document.createElement("a");
+        btn.href = song.url;
+        btn.target = "_blank";
+        btn.rel = "noopener";
+        btn.className = "youtube-btn";
+        btn.innerHTML = `<span style="font-size:28px;margin-right:8px;">Play</span> ${song.title}`;
+        youtubeContainer.appendChild(btn);
+      });
+      youtubeContainer.classList.remove("hidden");
     }
-    navigationHistory.push('gallery');
-    switchPage('gallery');
+    navigationHistory.push("gallery");
+    switchPage("gallery");
     updateBackButton();
   }
 
   function openFS(i) {
     currentIdx = i;
     updateFS();
-    fs.classList.remove('hidden');
+    fs.classList.remove("hidden");
     hideControls();
 
     fs.onclick = (e) => {
-      if (e.target.closest('button') || e.target.closest('#fs-overlay-controls')) return;
-      if (fsOverlay.classList.contains('active')) hideControls();
+      if (
+        e.target.closest("button") ||
+        e.target.closest("#fs-overlay-controls")
+      )
+        return;
+      if (fsOverlay.classList.contains("active")) hideControls();
       else showControls();
     };
   }
 
   function showControls() {
-    fsOverlay.classList.add('active');
+    fsOverlay.classList.add("active");
     clearTimeout(window.fsTimeout);
     window.fsTimeout = setTimeout(hideControls, 4000);
   }
 
   function hideControls() {
-    fsOverlay.classList.remove('active');
+    fsOverlay.classList.remove("active");
   }
 
   function updateFS() {
     fsImg.src = currentImages[currentIdx];
     fsCounter.textContent = `${currentIdx + 1} / ${currentImages.length}`;
-    let cleanName = currentImages[currentIdx].split('/').pop()
-  .replace(/\.(png|jpg|jpeg|webp|gif)$/i, '')
-  .replace(/^\d+[\s\.\-_]*\s*/i, '')               // ← REMOVES 1, 01, 10, etc.
-  .replace(/-sharp/gi, '#')
-  .replace(/\s+/g, ' ')
-  .trim();
-if (cleanName.match(/\b([A-G])#\b/i)) cleanName = cleanName.replace('#', '♯');
-fsCaption.textContent = cleanName;
+    let cleanName = currentImages[currentIdx]
+      .split("/")
+      .pop()
+      .replace(/\.(png|jpg|jpeg|webp|gif)$/i, "")
+      .replace(/^\d+[\s\.\-_]*\s*/i, "") // ← REMOVES 1, 01, 10, etc.
+      .replace(/_/g, " ")
+      .replace(/-sharp/gi, "#")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (cleanName.match(/\b([A-G])#\b/i))
+      cleanName = cleanName.replace("#", "♯");
+    fsCaption.textContent = cleanName;
     fsCaption.textContent = cleanName;
     hideControls();
   }
 
-  document.getElementById('close-fs').onclick = e => { e.stopPropagation(); fs.classList.add('hidden'); };
-  document.getElementById('prev-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx - 1 + currentImages.length) % currentImages.length; updateFS(); };
-  document.getElementById('next-img').onclick = e => { e.stopPropagation(); currentIdx = (currentIdx + 1) % currentImages.length; updateFS(); };
+  document.getElementById("close-fs").onclick = (e) => {
+    e.stopPropagation();
+    fs.classList.add("hidden");
+  };
+  document.getElementById("prev-img").onclick = (e) => {
+    e.stopPropagation();
+    currentIdx = (currentIdx - 1 + currentImages.length) % currentImages.length;
+    updateFS();
+  };
+  document.getElementById("next-img").onclick = (e) => {
+    e.stopPropagation();
+    currentIdx = (currentIdx + 1) % currentImages.length;
+    updateFS();
+  };
 
   // Swipe
   let startX = 0;
-  fs.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-  fs.addEventListener('touchend', e => {
+  fs.addEventListener("touchstart", (e) => (startX = e.touches[0].clientX));
+  fs.addEventListener("touchend", (e) => {
     const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) diff > 0 ? document.getElementById('next-img').click() : document.getElementById('prev-img').click();
+    if (Math.abs(diff) > 50)
+      diff > 0
+        ? document.getElementById("next-img").click()
+        : document.getElementById("prev-img").click();
   });
 
   // Keyboard navigation
-  document.addEventListener('keydown', e => {
-    if (!fs.classList.contains('hidden')) {
-      if (e.key === 'Escape') { e.preventDefault(); document.getElementById('close-fs').click(); }
-      else if (e.key === 'ArrowLeft') { e.preventDefault(); document.getElementById('prev-img').click(); }
-      else if (e.key === 'ArrowRight') { e.preventDefault(); document.getElementById('next-img').click(); }
+  document.addEventListener("keydown", (e) => {
+    if (!fs.classList.contains("hidden")) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        document.getElementById("close-fs").click();
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        document.getElementById("prev-img").click();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        document.getElementById("next-img").click();
+      }
     }
   });
 
   function switchPage(name) {
-    Object.values(pages).forEach(p => p.classList.remove('active'));
-    pages[name].classList.add('active');
-    fs.classList.add('hidden');
+    Object.values(pages).forEach((p) => p.classList.remove("active"));
+    pages[name].classList.add("active");
+    fs.classList.add("hidden");
 
     if (installBtnContainer) {
-      installBtnContainer.classList.toggle('hidden', name !== 'home');
+      installBtnContainer.classList.toggle("hidden", name !== "home");
     }
 
     updateBackButton();
@@ -201,17 +255,21 @@ fsCaption.textContent = cleanName;
 
   // v2 TAB SWITCHING
   function openTab(tab) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document
+      .querySelectorAll(".tab-btn")
+      .forEach((b) => b.classList.remove("active"));
+    document
+      .querySelectorAll(".page")
+      .forEach((p) => p.classList.remove("active"));
 
-    navigationHistory = ['home']; // reset history on tab change
+    navigationHistory = ["home"]; // reset history on tab change
 
-    if (tab === 'home') {
-      pages.home.classList.add('active');
-      tabHome.classList.add('active');
-    } else if (tab === 'about') {
-      pageAbout.classList.add('active');
-      tabAbout.classList.add('active');
+    if (tab === "home") {
+      pages.home.classList.add("active");
+      tabHome.classList.add("active");
+    } else if (tab === "about") {
+      pageAbout.classList.add("active");
+      tabAbout.classList.add("active");
       aboutContent.innerHTML = `
         <div style="padding:20px;text-align:center;">
           <h2 style="font-size:26px;color:#0a84ff;margin-bottom:16px;">Triads</h2>
@@ -247,44 +305,45 @@ fsCaption.textContent = cleanName;
           </div>
         </div>
       `;
-    } else if (tab === 'contribute') {
-      pageContribute.classList.add('active');
-      tabContribute.classList.add('active');
-    } else if (tab === 'donate') {
-      pageDonate.classList.add('active');
-      tabDonate.classList.add('active');
+    } else if (tab === "contribute") {
+      pageContribute.classList.add("active");
+      tabContribute.classList.add("active");
+    } else if (tab === "donate") {
+      pageDonate.classList.add("active");
+      tabDonate.classList.add("active");
     }
 
     updateBackButton();
   }
 
   function updateBackButton() {
-    const isInTriad = navigationHistory[navigationHistory.length - 1] === 'detail' ||
-                      navigationHistory[navigationHistory.length - 1] === 'gallery';
+    const isInTriad =
+      navigationHistory[navigationHistory.length - 1] === "detail" ||
+      navigationHistory[navigationHistory.length - 1] === "gallery";
 
-    backBtnTop.classList.toggle('visible', isInTriad);
+    backBtnTop.classList.toggle("visible", isInTriad);
   }
 
   // Click handlers
-  tabHome.onclick = () => openTab('home');
-  tabAbout.onclick = () => openTab('about');
-  tabContribute.onclick = () => openTab('contribute');
-  tabDonate.onclick = () => openTab('donate');
+  tabHome.onclick = () => openTab("home");
+  tabAbout.onclick = () => openTab("about");
+  tabContribute.onclick = () => openTab("contribute");
+  tabDonate.onclick = () => openTab("donate");
 
   // Top-right Back button — smart previous page
   backBtnTop.onclick = () => {
     navigationHistory.pop(); // remove current
-    const previous = navigationHistory[navigationHistory.length - 1] || 'home';
+    const previous = navigationHistory[navigationHistory.length - 1] || "home";
 
-    if (previous === 'home') {
-      openTab('home');
-    } else if (previous === 'detail') {
-      switchPage('detail');
-    } else if (previous === 'gallery') {
-      switchPage('gallery');
+    if (previous === "home") {
+      openTab("home");
+    } else if (previous === "detail") {
+      switchPage("detail");
+    } else if (previous === "gallery") {
+      switchPage("gallery");
     }
   };
 
   renderHome();
-  openTab('home');
+  openTab("home");
 });

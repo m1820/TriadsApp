@@ -23,6 +23,16 @@ const SHAPES_DATA = [
           "resources/A_Major7_Shaped_Triad/Example_Song_in_G_with_1-5-6-4_Progression/2 D.png",
           "resources/A_Major7_Shaped_Triad/Example_Song_in_G_with_1-5-6-4_Progression/3 Em.png",
           "resources/A_Major7_Shaped_Triad/Example_Song_in_G_with_1-5-6-4_Progression/4 C.png"
+        ],
+        "songs": [
+          {
+            "title": "1 5 6 4 in G Major",
+            "url": "https://www.youtube.com/watch?v=Lpx4Mrj6dyo"
+          },
+          {
+            "title": "Option 2",
+            "url": "https://www.youtube.com/watch?v=G9lMtDRBNrs&list=RDG9lMtDRBNrs&start_radio=1"
+          }
         ]
       }
     ]
@@ -51,6 +61,31 @@ const SHAPES_DATA = [
           "resources/A_Major_Shaped_Triad/Example_Song_in_E_with_1-5-6-4_Progression/2 B.png",
           "resources/A_Major_Shaped_Triad/Example_Song_in_E_with_1-5-6-4_Progression/3 C-sharp.png",
           "resources/A_Major_Shaped_Triad/Example_Song_in_E_with_1-5-6-4_Progression/4 A.png"
+        ],
+        "songs": [
+          {
+            "title": "1 5 6 4 in E Major",
+            "url": "https://www.youtube.com/watch?v=u8bsQmi3MMU"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Mixed Patterns",
+    "submenus": [
+      {
+        "name": "A Maj7 Plus Shape Pattern",
+        "images": [
+          "resources/Mixed_Patterns/A_Maj7_Plus_Shape_Pattern/0.A_Maj7_Plus_Shape.webp",
+          "resources/Mixed_Patterns/A_Maj7_Plus_Shape_Pattern/1.A_Maj7_Shape_G_1_5_6_4.webp",
+          "resources/Mixed_Patterns/A_Maj7_Plus_Shape_Pattern/2.Shape_G_1_5_6_4.webp"
+        ],
+        "songs": [
+          {
+            "title": "1 5 6 4 in G Major",
+            "url": "https://www.youtube.com/watch?v=Lpx4Mrj6dyo"
+          }
         ]
       }
     ]
@@ -78,27 +113,23 @@ const SHAPES_DATA = [
           "resources/Shape_Triad/Example_Song_in_E_with_1-5-6-4_Progression/2 B.png",
           "resources/Shape_Triad/Example_Song_in_E_with_1-5-6-4_Progression/3 C-sharp.png",
           "resources/Shape_Triad/Example_Song_in_E_with_1-5-6-4_Progression/4 A.png"
+        ],
+        "songs": [
+          {
+            "title": "1 5 6 4 in E Major",
+            "url": "https://www.youtube.com/watch?v=u8bsQmi3MMU"
+          }
         ]
       }
     ]
   }
 ];
 
-// -------------------------------------------------
-// GoodFor.txt loader
-// -------------------------------------------------
-async function loadGoodFor(shapeName){
-  const map = {
-    "A Major7 Shaped Triad": "A_Major7_Shaped_Triad",
-    "A Major Shaped Triad": "A_Major_Shaped_Triad",
-    "Shape Triad": "Shape_Triad",
-  };
-  const folder = map[shapeName];
-  if (!folder) return "No description available.";
-  try {
-    const r = await fetch(`resources/${folder}/GoodFor.txt`);
-    if (r.ok) return await r.text();
-  } catch {}
-  return "No description available.";
-}
-window.loadGoodFor = loadGoodFor;
+// subheader.txt loader
+async function loadGoodFor(n){const m={
+"A Major7 Shaped Triad":"A_Major7_Shaped_Triad",
+"A Major Shaped Triad":"A_Major_Shaped_Triad",
+"Mixed Patterns":"Mixed_Patterns",
+"Shape Triad":"Shape_Triad",
+};const f=m[n];if(!f)return"";try{const r=await fetch(`resources/${f}/subheader.txt`);if(r.ok)return await r.text()}catch{}return""}
+window.loadGoodFor=loadGoodFor;
