@@ -126,10 +126,17 @@ const SHAPES_DATA = [
 ];
 
 // subheader.txt loader
-async function loadGoodFor(n){const m={
-"A Major7 Shaped Triad":"A_Major7_Shaped_Triad",
-"A Major Shaped Triad":"A_Major_Shaped_Triad",
-"Mixed Patterns":"Mixed_Patterns",
-"Shape Triad":"Shape_Triad",
-};const f=m[n];if(!f)return"";try{const r=await fetch(`resources/${f}/subheader.txt`);if(r.ok)return await r.text()}catch{}return""}
-window.loadGoodFor=loadGoodFor;
+async function loadSubheader(n){const m={
+    "A Major7 Shaped Triad": "A_Major7_Shaped_Triad",
+    "A Major Shaped Triad": "A_Major_Shaped_Triad",
+    "Mixed Patterns": "Mixed_Patterns",
+    "Shape Triad": "Shape_Triad",
+  };
+  const f = m[n];
+  if (!f) return "";
+  try { const r = await fetch(`resources/${f}/subheader.txt`); if (r.ok) return await r.text(); }
+  catch { return ""; }
+}
+window.loadSubheader = loadSubheader;
+
+const APP_VERSION = "v2.0";

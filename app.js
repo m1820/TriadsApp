@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const submenuList = document.getElementById("submenu-list");
   const imageGrid = document.getElementById("image-grid");
   const shapeTitle = document.getElementById("shape-title");
-  const goodforText = document.getElementById("goodfor-text");
+  const subheaderText = document.getElementById("subheader-text");
   const galleryTitle = document.getElementById("gallery-title");
   const fs = document.getElementById("fullscreen");
   const fsImg = document.getElementById("fs-image");
@@ -79,10 +79,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const shape = SHAPES_DATA[idx];
     currentShape = shape;
     shapeTitle.textContent = shape.name;
-    goodforText.textContent = "…";
+    subheaderText.textContent = "…";
     submenuList.innerHTML = "";
-    const txt = await loadGoodFor(shape.name);
-    goodforText.textContent = txt.trim() || "";
+    const txt = await loadSubheader(shape.name);
+    subheaderText.textContent = txt.trim();
     shape.submenus.forEach((sub) => {
       const card = document.createElement("div");
       card.className = "submenu-card";
@@ -301,10 +301,15 @@ document.addEventListener("DOMContentLoaded", () => {
             Built with ❤️ for the guitar community<br><br>
             <a href="https://github.com/m1820/TriadsApp" target="_blank" style="color:#0a84ff;">View on GitHub →</a><br><br>
             <a href="https://github.com/sponsors/m1820" target="_blank" style="color:#ff6b6b;font-weight:600;">❤️ Sponsor on GitHub</a><br><br>
-            Diagrams by <a href="https://zeitbach.com/projects/fretboard-diagram-creator/" target="_blank" style="color:#0a84ff;">Fretboard Diagram Creator</a>
+                        Diagrams by <a href="https://zeitbach.com/projects/fretboard-diagram-creator/" target="_blank" style="color:#0a84ff;">Fretboard Diagram Creator</a><br><br>
+            <small style="color:#666;font-size:12px;">Version <span id="app-version">loading...</span></small>
           </div>
         </div>
       `;
+      if (typeof APP_VERSION !== "undefined") {
+        const v = document.getElementById("app-version");
+        if (v) v.textContent = APP_VERSION;
+      }
     } else if (tab === "contribute") {
       pageContribute.classList.add("active");
       tabContribute.classList.add("active");
