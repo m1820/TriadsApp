@@ -1,8 +1,10 @@
 # Triads PWA
 
-TriadsApp lets you learn every movable triad shape once — then instantly play in any key, any song, forever.No more memorizing hundreds of chords. No more getting stuck when the worship leader changes keys. Just learn a simple shape, know where the root is, and you’re ready — in G, in E, in Bb, wherever the song goes.Perfect for worship leaders, rhythm players, songwriters, and anyone who’s tired of chord charts.Free. Offline. Installable on iPhone & Android. No ads, no paywalls — ever.
+TriadsApp lets you learn every movable triad shape once — then instantly play in any key, any song, forever.No more memorizing hundreds of chords.
+No more getting stuck when the worship leader changes keys.
+Just learn a simple shape, know where the root is, and you’re ready — in G, in E, in Bb, wherever the song goes.Perfect for worship leaders, rhythm players, songwriters, and anyone who’s tired of chord charts.Free. Offline. Installable on iPhone & Android. No ads, no paywalls — ever.
 
-It's free and open-source!
+A free, open-source Progressive Web App for guitar triad shapes. Explore roots, progressions, and examples in landscape mode. Install on iPhone/Android for native feel.
 
 ## Demo
 
